@@ -1,0 +1,23 @@
+{
+  "name": "labbration3",
+  "version": "1.0.0",
+  "description": "labb ",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wilmaljungkvist/labbration-3.git"
+  },
+  "author": "Wilma Ljungkvist",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wilmaljungkvist/labbration-3/issues"
+  },
+  "homepage": "https://github.com/Wilmaljungkvist/labbration-3#readme",
+  "dependencies": {
+    "slumpgenerator": "^1.0.4",
+    "vite": "^4.4.9"
+  }
+}
