@@ -1,4 +1,3 @@
-
 export class Multiplication {
     constructor() {
         this.numberAnswer = document.querySelector('#numberAnswer')
