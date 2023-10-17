@@ -1,3 +1,3 @@
-import { Multiplication } from './src/model/multiplication.js'
+import { Multiplication } from './multiplication.js'
 
 const multiplication = new Multiplication()
