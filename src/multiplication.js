@@ -4,6 +4,7 @@ import { MathQuestion } from './mathQuestion'
 export class Multiplication {
 
     constructor() {
+        this.correct = document.querySelector('.correctAnswers')
         this.question = new MathQuestion()
         this.numberGenerator = new NumberGenerator()
         this.numberAnswer = document.querySelector('#numberAnswer')
@@ -21,10 +22,12 @@ export class Multiplication {
 
         if (parseInt(inputValue) === this.question.correctAnswer) {
             this.p.textContent = 'Correct!'
+            const score = Number.parseInt(this.correct.textContent)
+            this.correct.textContent = (score + 1).toString()
         } else {
             this.p.textContent = 'Incorrect. Try again.'
         }
-
+        this.numberAnswer.value = ''
         this.generateNewQuestion()
     }
 
