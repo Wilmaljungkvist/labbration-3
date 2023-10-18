@@ -47,6 +47,7 @@ customElements.define('multiplication-question', class extends HTMLElement {
       this.numberGenerator = new NumberGenerator()
       this.h1 = this.shadowRoot.querySelector('h1')
       this.form = this.shadowRoot.querySelector('form')
+      this.input = this.shadowRoot.querySelector('#numberAnswer')
       this.correctAnswer = 0
       this.currentRound = 0
       this.totalRounds = 0
@@ -56,27 +57,25 @@ customElements.define('multiplication-question', class extends HTMLElement {
   initialize(table, rounds) {
     this.totalRounds = Number.parseInt(rounds)
     this.table = Number.parseInt(table)
-
-    const generateQuestionsForRound = (round) => {
-        if (this.currentRound <= this.totalRounds) {
-            this.generateNewQuestion(table, round)
-        }
-    }
-
-    generateQuestionsForRound(1)
+    this.currentRound = 0
+    this.startRound()
 }
 
 
-  generateNewQuestion(table, round) {
-    let thisRound = Number.parseInt(round)
-    console.log(thisRound)
-    console.log(this.round)
+  startRound() {
+    this.input.value = ''
+    if (this.currentRound < this.totalRounds) {
+      this.generateNewQuestion(this.table)
+    } else {
+      this.h1.textContent = 'Game Over'
+    }
+  }
+  generateNewQuestion(table) {
       const num1 = Number.parseInt(table)
       const num2 = this.numberGenerator.getRandomInt(0, num1)
 
     this.correctAnswer = num1 * num2
     this.h1.textContent = `What is ${num1} x ${num2}?`
-    this.round += 1
 }
 
 connectedCallback() {
@@ -90,8 +89,8 @@ connectedCallback() {
       }
 
       setTimeout(() => {
-        this.initialize(this.table, this.totalRounds)
         this.currentRound += 1
+        this.startRound()
       }, 1000)
     })
   }
