@@ -28,9 +28,9 @@ button[type="submit"]:hover {
 <div class="container">
     <h1>Vad vill du öva på?</h1>
     <form>
-        <button>Multiplikation</button>
-        <button>Addition</button>
-        <button>Subtraktion</button>
+        <button class="multiplication">Multiplikation</button>
+        <button class="addition">Addition</button>
+        <button class="subtraction">Subtraktion</button>
 </form>
   <div>
 `
@@ -42,6 +42,25 @@ customElements.define('math-choose',
 
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
+
+        this.multiplication = this.shadowRoot.querySelector('.multiplication')
+        this.subtraction = this.shadowRoot.querySelector('.subtraction')
+        this.addition = this.shadowRoot.querySelector('.addition')
+
+        this.multiplication.addEventListener('click', () => {
+          const event = new Event('multiplication-selected', {bubbles: true, composed: true})
+          this.dispatchEvent(event)
+        })
+
+        this.addition.addEventListener('click', () => {
+          const event = new Event('addition-selected', {bubbles: true, composed: true})
+          this.dispatchEvent(event)
+        })
+
+        this.subtraction.addEventListener('click', () => {
+          const event = new Event('subtraction-selected', {bubbles: true, composed: true})
+          this.dispatchEvent(event)
+        })
     }
   }
 )
