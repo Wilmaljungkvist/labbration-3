@@ -9,10 +9,13 @@ export class Multiplication {
         this.numberGenerator = new NumberGenerator()
         this.numberAnswer = document.querySelector('#numberAnswer')
         this.answerForm = document.querySelector('#answerForm')
-        this.heading = document.querySelector('h1')
+        this.heading = document.querySelector('.question')
+        this.h1 = document.querySelector('h1')
         this.p = document.querySelector('.correct')
+        this.oneButton = document.querySelector('#one-button')
 
         this.answerForm.addEventListener('submit', this.handleSubmit.bind(this))
+        this.oneButton.addEventListener('click', this.handleOneButtonClick.bind(this))
         this.generateNewQuestion()
     }
 
@@ -29,6 +32,10 @@ export class Multiplication {
         }
         this.numberAnswer.value = ''
         this.generateNewQuestion()
+    }
+
+    handleOneButtonClick() {
+        this.h1.textContent = 'Det funkar'
     }
 
     generateNewQuestion() {
