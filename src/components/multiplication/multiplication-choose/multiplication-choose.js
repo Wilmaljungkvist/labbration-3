@@ -28,17 +28,33 @@ button[type="submit"]:hover {
 <div class="container">
     <h1>Vilken multiplikationstabell vill du öva på?</h1>
     <form>
-    <input id='numberAnswer' name="answer" type="number" placeholder="Write and press enter">
+    <input id='numberChoose' name="numberChoose" type="number">
+    <label> Hur många rundor?</label>
+    <input id='numberRounds' name="numberRounds" type="number">
     <button type="submit">Skicka</button>
 </form>
   <div>
 `
 
-customElements.define('multiplication-question', class extends HTMLElement {
+customElements.define('multiplication-choose', 
+class extends HTMLElement {
   constructor() {
     super()
 
     this.attachShadow({ mode: 'open' })
       .appendChild(template.content.cloneNode(true))
-  }
+
+      this.submitButton = this.shadowRoot.querySelector('button')
+
+     this.submitButton.addEventListener('click', () => {
+        const multiplicationTable = this.shadowRoot.querySelector('#numberChoose').value;
+        const numberOfRounds = this.shadowRoot.querySelector('#numberRounds').value;
+        const event = new CustomEvent('start-multiplication-game', {
+          detail: { table: multiplicationTable, rounds: numberOfRounds },
+          bubbles: true,
+          composed: true,
+        })
+        this.dispatchEvent(event)
+  })
+ }
 })

@@ -42,4 +42,8 @@ customElements.define('multiplication-question', class extends HTMLElement {
     this.attachShadow({ mode: 'open' })
       .appendChild(template.content.cloneNode(true))
   }
+
+  initialize (table, rounds) {
+    console.log(table + rounds)
+  }
 })
