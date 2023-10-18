@@ -1,7 +1,7 @@
 import '../math-choose/index.js'
-import '../multiplication-question/index.js'
-import '../addition-question/index.js'
-import '../subtraction-question/index.js'
+import '../multiplication/multiplication-question/index.js'
+import '../addition/addition-question/index.js'
+import '../subtraction/subtraction-question/index.js'
 
 const template = document.createElement('template');
 template.innerHTML = `

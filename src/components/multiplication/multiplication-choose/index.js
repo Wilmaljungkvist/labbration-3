@@ -1,0 +1,1 @@
+import './multiplication-choose.js'
