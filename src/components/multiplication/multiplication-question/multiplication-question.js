@@ -73,14 +73,13 @@ customElements.define('multiplication-question', class extends HTMLElement {
     if (this.currentRound < this.totalRounds) {
       this.generateNewQuestion(this.table)
     } else {
-      // TODO: Visa poäng och möjlighet till att bestämma vad som ska hända näst.
-      this.h1.textContent = 'Game Over'
+      this.h1.textContent = 'Slut på frågor'
       const restartButton = document.createElement('button')
       this.container.appendChild(restartButton)
       restartButton.textContent = 'Köra igen?'
       const homeButton = document.createElement('button')
       this.container.appendChild(homeButton)
-      restartButton.textContent = 'Gå till hemskärm?'
+      homeButton.textContent = 'Gå till hemskärm?'
 
       homeButton.addEventListener('click', () => {
         const event = new CustomEvent('home-start', {
