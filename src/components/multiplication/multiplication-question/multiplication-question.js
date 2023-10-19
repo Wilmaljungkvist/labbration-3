@@ -23,11 +23,12 @@ button {
     transition: background-color 0.3s;
 }
 
-button[type="submit"]:hover {
+button:hover {
     background-color: #ff3385;
 }
 </style>
 <div class="container">
+  <p>Score: 0</p>
     <h1></h1>
     <form>
     <label for="answer">Please write your answer: </label>
@@ -48,10 +49,12 @@ customElements.define('multiplication-question', class extends HTMLElement {
       this.h1 = this.shadowRoot.querySelector('h1')
       this.form = this.shadowRoot.querySelector('form')
       this.input = this.shadowRoot.querySelector('#numberAnswer')
+      this.score = this.shadowRoot.querySelector('p')
       this.correctAnswer = 0
       this.currentRound = 0
       this.totalRounds = 0
       this.table = 0
+      this.scoreCount = 0
   }
 
   initialize(table, rounds) {
@@ -67,6 +70,7 @@ customElements.define('multiplication-question', class extends HTMLElement {
     if (this.currentRound < this.totalRounds) {
       this.generateNewQuestion(this.table)
     } else {
+      // TODO: Visa poäng och möjlighet till att bestämma vad som ska hända näst.
       this.h1.textContent = 'Game Over'
     }
   }
@@ -81,11 +85,15 @@ customElements.define('multiplication-question', class extends HTMLElement {
 connectedCallback() {
     this.form.addEventListener('submit', (event) => {
       event.preventDefault()
+      // TODO: Fixa så de kommer olika meddelanden.
+      const correctMessages = ['Korrekt, bra jobbat!', 'De va rätt, snyggt!', 'Ding ding, ett poäng till dig']
       const userAnswer = parseInt(this.shadowRoot.querySelector('#numberAnswer').value)
       if (userAnswer === this.correctAnswer) {
-        this.h1.textContent = 'Correct!'
+        this.h1.textContent = 'Korrekt, bra jobbat!'
+        this.scoreCount += 1
+        this.score.textContent = 'Poäng: ' + this.scoreCount
       } else {
-        this.h1.textContent = 'Incorrect. Try again.'
+        this.h1.textContent = 'fel!'
       }
 
       setTimeout(() => {

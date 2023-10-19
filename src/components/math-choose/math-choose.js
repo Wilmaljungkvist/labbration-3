@@ -21,7 +21,7 @@ button {
     transition: background-color 0.3s;
 }
 
-button[type="submit"]:hover {
+button:hover {
     background-color: #ff3385;
 }
 </style>
