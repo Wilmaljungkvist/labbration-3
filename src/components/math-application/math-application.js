@@ -4,6 +4,8 @@ import '../multiplication/multiplication-question/index.js'
 import '../multiplication/multiplication-choose/index.js'
 import '../addition/addition-question/index.js'
 import '../subtraction/subtraction-question/index.js'
+import '../multiplication/multiplication-question/index.js'
+
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -17,7 +19,7 @@ customElements.define('math-application', class extends HTMLElement {
     super()
 
     this.attachShadow({ mode: 'open' })
-      .appendChild(template.content.cloneNode(true));
+      .appendChild(template.content.cloneNode(true))
 
     this.mathChoose = this.shadowRoot.querySelector('math-choose')
 
@@ -25,17 +27,27 @@ customElements.define('math-application', class extends HTMLElement {
       this.showMultiplicationChoose()
     })
 
-    this.mathChoose.addEventListener('multiply-start', () => {
-        this.showMultiplicationChoose()
-      })
-
     this.mathChoose.addEventListener('addition-selected', () => {
       this.showAdditionQuestion()
-    });
+    })
 
     this.mathChoose.addEventListener('subtraction-selected', () => {
       this.showSubtractionQuestion()
-    });
+    })
+
+    this.addEventListener('multiply-start', () => {
+        this.showMultiplicationChoose()
+      })
+
+      this.addEventListener('home-start', () => {
+        this.homeScreen()
+      })
+  }
+
+  homeScreen() {
+    this.clearShadowDOM()
+    const homeScreen = document.createElement('math-choose')
+    this.shadowRoot.appendChild(homeScreen)
   }
 
   showMultiplicationChoose() {

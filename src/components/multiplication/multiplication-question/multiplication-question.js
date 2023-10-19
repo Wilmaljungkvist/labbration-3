@@ -84,7 +84,7 @@ customElements.define('multiplication-question', class extends HTMLElement {
 
       homeButton.addEventListener('click', () => {
         const event = new CustomEvent('home-start', {
-           bubbles: true,
+          bubbles: true,
           composed: true,
         })
         this.dispatchEvent(event)
@@ -94,8 +94,9 @@ customElements.define('multiplication-question', class extends HTMLElement {
         const event = new CustomEvent('multiply-start', {
           bubbles: true,
           composed: true,
-        })
+          })
         this.dispatchEvent(event)
+        console.log('Disatches event!')
       })
 
       this.label.textContent = 'Bra jobbat! Vad vill du göra nu?'
