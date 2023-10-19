@@ -23,7 +23,11 @@ customElements.define('math-application', class extends HTMLElement {
 
     this.mathChoose.addEventListener('multiplication-selected', () => {
       this.showMultiplicationChoose()
-    });
+    })
+
+    this.mathChoose.addEventListener('multiply-start', () => {
+        this.showMultiplicationChoose()
+      })
 
     this.mathChoose.addEventListener('addition-selected', () => {
       this.showAdditionQuestion()

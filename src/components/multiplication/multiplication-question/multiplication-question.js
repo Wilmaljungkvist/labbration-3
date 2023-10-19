@@ -33,7 +33,7 @@ button:hover {
     <form>
     <label for="answer">Please write your answer: </label>
     <input id='numberAnswer' name="answer" type="number" placeholder="Write and press enter">
-    <button type="submit">Submit</button>
+    <button type="submit" id="submit">Submit</button>
 </form>
   <div>
 `
@@ -50,6 +50,9 @@ customElements.define('multiplication-question', class extends HTMLElement {
       this.form = this.shadowRoot.querySelector('form')
       this.input = this.shadowRoot.querySelector('#numberAnswer')
       this.score = this.shadowRoot.querySelector('p')
+      this.label = this.shadowRoot.querySelector('label')
+      this.submit = this.shadowRoot.querySelector('#submit')
+      this.container = this.shadowRoot.querySelector('.container')
       this.correctAnswer = 0
       this.currentRound = 0
       this.totalRounds = 0
@@ -72,8 +75,36 @@ customElements.define('multiplication-question', class extends HTMLElement {
     } else {
       // TODO: Visa poäng och möjlighet till att bestämma vad som ska hända näst.
       this.h1.textContent = 'Game Over'
+      const restartButton = document.createElement('button')
+      this.container.appendChild(restartButton)
+      restartButton.textContent = 'Köra igen?'
+      const homeButton = document.createElement('button')
+      this.container.appendChild(homeButton)
+      restartButton.textContent = 'Gå till hemskärm?'
+
+      homeButton.addEventListener('click', () => {
+        const event = new CustomEvent('home-start', {
+           bubbles: true,
+          composed: true,
+        })
+        this.dispatchEvent(event)
+      })
+
+      restartButton.addEventListener('click', () => {
+        const event = new CustomEvent('multiply-start', {
+          bubbles: true,
+          composed: true,
+        })
+        this.dispatchEvent(event)
+      })
+
+      this.label.textContent = 'Bra jobbat! Vad vill du göra nu?'
+      this.input.remove()
+      this.submit.remove()
     }
   }
+
+
   generateNewQuestion(table) {
       const num1 = Number.parseInt(table)
       const num2 = this.numberGenerator.getRandomInt(0, num1)
@@ -91,9 +122,10 @@ connectedCallback() {
       if (userAnswer === this.correctAnswer) {
         this.h1.textContent = 'Korrekt, bra jobbat!'
         this.scoreCount += 1
-        this.score.textContent = 'Poäng: ' + this.scoreCount
+        this.score.textContent = 'Poäng: ' + this.scoreCount + '/' + (this.currentRound + 1)
       } else {
         this.h1.textContent = 'fel!'
+        this.score.textContent = 'Poäng: ' + this.scoreCount + '/' + (this.currentRound + 1)
       }
 
       setTimeout(() => {
