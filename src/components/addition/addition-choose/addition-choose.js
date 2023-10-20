@@ -29,14 +29,17 @@ button[type="submit"]:hover {
     <h1>Vad vill du öva på?</h1>
     <form>
     <input id='numberChoose' name="numberChoose" type="number">
-    <label> Hur många rundor?</label>
+    <p>Vilka nummer vill du öva mellan?</p>
+     <br><label>mindre<label>
+    <input id='numberRounds' name="numberRounds" type="number">
+    <br><label>Övre</label>
     <input id='numberRounds' name="numberRounds" type="number">
     <button type="submit">Skicka</button>
 </form>
   <div>
 `
 
-customElements.define('addition-question', class extends HTMLElement {
+customElements.define('addition-choose', class extends HTMLElement {
   constructor() {
     super()
 

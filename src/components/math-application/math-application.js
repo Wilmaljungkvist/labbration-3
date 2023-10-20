@@ -3,6 +3,7 @@ import '../math-choose/index.js'
 import '../multiplication/multiplication-question/index.js'
 import '../multiplication/multiplication-choose/index.js'
 import '../addition/addition-question/index.js'
+import '../addition/addition-choose/index.js'
 import '../subtraction/subtraction-question/index.js'
 import '../multiplication/multiplication-question/index.js'
 
@@ -70,7 +71,7 @@ customElements.define('math-application', class extends HTMLElement {
 
   showAdditionQuestion() {
     this.clearShadowDOM()
-    const additionQuestion = document.createElement('addition-question')
+    const additionQuestion = document.createElement('addition-choose')
     this.shadowRoot.appendChild(additionQuestion)
   }
 
