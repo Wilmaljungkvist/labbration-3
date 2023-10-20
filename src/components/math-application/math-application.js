@@ -29,7 +29,7 @@ customElements.define('math-application', class extends HTMLElement {
     })
 
     this.mathChoose.addEventListener('addition-selected', () => {
-      this.showAdditionQuestion()
+      this.showAdditionChoose()
     })
 
     this.mathChoose.addEventListener('subtraction-selected', () => {

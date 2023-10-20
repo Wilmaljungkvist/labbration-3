@@ -65,11 +65,10 @@ customElements.define('addition-question', class extends HTMLElement {
   }
 
   initialize(numbers, rounds, high, low) {
-    this.rounds = Number.parseInt(rounds)
+    this.totalRounds = Number.parseInt(rounds)
     this.numbers = Number.parseInt(numbers)
     this.high = Number.parseInt(high)
     this.low = Number.parseInt(low)
-    this.currentRound = 0
     this.startRound()
 }
 
@@ -111,20 +110,16 @@ customElements.define('addition-question', class extends HTMLElement {
 
 
   generateNewQuestion(numbers) { 
-    const numbersToAdd = this.arrayGenerator.getRandomArray(this.low, this.high, numbers)
-    const question = 'What is '
-    for (let i = 0; i < numbersToAdd; i++) {
-      if (numbersToAdd.length < i) {
-        question += `${numbersToAdd[i]} + `
-      } else {
-        question = `${numbersToAdd[i]}`
-      }
-    }
-
-    for (let i = 0; i < numbersToAdd; i++) {
-      this.correctAnswer += numbersToAdd[i]
+    const numbersToAdd = this.arrayGenerator.getRandomArray(this.low, (this.high + 1), numbers)
+    let question = 'What is '
+    for (let i = 0; i < numbersToAdd.length; i++) {
+      question += numbersToAdd[i]
+      if (i < (numbersToAdd.length - 1)) {
+        question += ' + '
+      } 
     }
     this.h1.textContent = question
+    this.correctAnswer = numbersToAdd.reduce((acc, num) => acc + num, 0)
 }
 
 connectedCallback() {
