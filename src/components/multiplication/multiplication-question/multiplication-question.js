@@ -131,14 +131,22 @@ connectedCallback() {
         'Du har verkligen koll.',
         'Mitt i prick!'
       ]
-      const index = this.arrayGenerator.getRandomArrayIndex(correctMessages)
+      const wrongMessages = [
+        'Fel!',
+        'Tyvärr så va det fel. ',
+        'Bra försök, men svaret är fel.',
+        'Fel! :(',
+        'Fel! :|'
+      ]
+      const indexCorrect = this.arrayGenerator.getRandomArrayIndex(correctMessages)
+      const indexWrong = this.arrayGenerator.getRandomArrayIndex(wrongMessages)
       const userAnswer = parseInt(this.shadowRoot.querySelector('#numberAnswer').value)
       if (userAnswer === this.correctAnswer) {
-        this.h1.textContent = correctMessages[index]
+        this.h1.textContent = correctMessages[indexCorrect]
         this.scoreCount += 1
         this.score.textContent = 'Poäng: ' + this.scoreCount + '/' + (this.currentRound + 1)
       } else {
-        this.h1.textContent = 'fel!'
+        this.h1.textContent = wrongMessages[indexWrong]
         this.score.textContent = 'Poäng: ' + this.scoreCount + '/' + (this.currentRound + 1)
       }
 
