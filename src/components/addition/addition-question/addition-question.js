@@ -1,3 +1,5 @@
+import { NumberGenerator, ArrayGenerator } from "slumpgenerator";
+
 const template = document.createElement('template');
 template.innerHTML = `
   <style>
@@ -11,6 +13,7 @@ template.innerHTML = `
 }
 
 button {
+    margin: 20px; 
     background-color: #ff66b2;
     color: #fff;
     padding: 10px 20px;
@@ -21,26 +24,144 @@ button {
     transition: background-color 0.3s;
 }
 
-button[type="submit"]:hover {
+button:hover {
     background-color: #ff3385;
 }
 </style>
 <div class="container">
-    <h1>Vad vill du öva på?</h1>
+  <p>Score: 0</p>
+    <h1></h1>
     <form>
-    <input id='numberChoose' name="numberChoose" type="number">
-    <label> Hur många rundor?</label>
-    <input id='numberRounds' name="numberRounds" type="number">
-    <button type="submit">Skicka</button>
+    <label for="answer">Please write your answer: </label>
+    <input id='numberAnswer' name="answer" type="number" placeholder="Write and press enter">
+    <button type="submit" id="submit">Submit</button>
 </form>
   <div>
 `
-// TODO: Fix so the user can see and answer the questions.
+
 customElements.define('addition-question', class extends HTMLElement {
   constructor() {
     super()
 
     this.attachShadow({ mode: 'open' })
       .appendChild(template.content.cloneNode(true))
+
+      this.numberGenerator = new NumberGenerator()
+      this.arrayGenerator = new ArrayGenerator()
+      this.h1 = this.shadowRoot.querySelector('h1')
+      this.form = this.shadowRoot.querySelector('form')
+      this.input = this.shadowRoot.querySelector('#numberAnswer')
+      this.score = this.shadowRoot.querySelector('p')
+      this.label = this.shadowRoot.querySelector('label')
+      this.submit = this.shadowRoot.querySelector('#submit')
+      this.container = this.shadowRoot.querySelector('.container')
+      this.correctAnswer = 0
+      this.currentRound = 0
+      this.totalRounds = 0
+      this.numbers = 0
+      this.scoreCount = 0
+      this.high = 0
+      this.low = 0
+  }
+
+  initialize(numbers, rounds, high, low) {
+    this.rounds = Number.parseInt(rounds)
+    this.numbers = Number.parseInt(numbers)
+    this.high = Number.parseInt(high)
+    this.low = Number.parseInt(low)
+    this.currentRound = 0
+    this.startRound()
+}
+
+
+  startRound() {
+    this.input.value = ''
+    if (this.currentRound < this.totalRounds) {
+      this.generateNewQuestion(this.numbers)
+    } else {
+      this.h1.textContent = 'Slut på frågor'
+      const restartButton = document.createElement('button')
+      this.container.appendChild(restartButton)
+      restartButton.textContent = 'Köra igen?'
+      const homeButton = document.createElement('button')
+      this.container.appendChild(homeButton)
+      homeButton.textContent = 'Gå till hemskärm?'
+
+      homeButton.addEventListener('click', () => {
+        const event = new CustomEvent('home-start', {
+          bubbles: true,
+          composed: true,
+        })
+        this.dispatchEvent(event)
+      })
+
+      restartButton.addEventListener('click', () => {
+        const event = new CustomEvent('addition-start', {
+          bubbles: true,
+          composed: true,
+          })
+        this.dispatchEvent(event)
+      })
+
+      this.label.textContent = 'Bra jobbat! Vad vill du göra nu?'
+      this.input.remove()
+      this.submit.remove()
+    }
+  }
+
+
+  generateNewQuestion(numbers) { 
+    const numbersToAdd = this.arrayGenerator.getRandomArray(this.low, this.high, numbers)
+    const question = 'What is '
+    for (let i = 0; i < numbersToAdd; i++) {
+      if (numbersToAdd.length < i) {
+        question += `${numbersToAdd[i]} + `
+      } else {
+        question = `${numbersToAdd[i]}`
+      }
+    }
+
+    for (let i = 0; i < numbersToAdd; i++) {
+      this.correctAnswer += numbersToAdd[i]
+    }
+    this.h1.textContent = question
+}
+
+connectedCallback() {
+    this.form.addEventListener('submit', (event) => {
+      event.preventDefault()
+      const correctMessages = [
+        'Korrekt, bra jobbat!',
+        'De va rätt, snyggt!',
+        'Ding ding, ett poäng till dig', 
+        'Bra gissat!',
+        'Du har helt rätt!',
+        'Du har verkligen koll.',
+        'Mitt i prick!'
+      ]
+      const wrongMessages = [
+        'Fel!',
+        'Tyvärr så va det fel. ',
+        'Bra försök, men svaret är fel.',
+        'Fel! :(',
+        'Fel! :|'
+      ]
+      const indexCorrect = this.arrayGenerator.getRandomArrayIndex(correctMessages)
+      const indexWrong = this.arrayGenerator.getRandomArrayIndex(wrongMessages)
+      const userAnswer = parseInt(this.shadowRoot.querySelector('#numberAnswer').value)
+      if (userAnswer === this.correctAnswer) {
+        this.h1.textContent = correctMessages[indexCorrect]
+        this.scoreCount += 1
+        this.score.textContent = 'Poäng: ' + this.scoreCount + '/' + (this.currentRound + 1)
+      } else {
+        this.h1.textContent = wrongMessages[indexWrong]
+        this.score.textContent = 'Poäng: ' + this.scoreCount + '/' + (this.currentRound + 1)
+      }
+
+      setTimeout(() => {
+        this.currentRound += 1
+        this.startRound()
+      }, 1000)
+    })
   }
 })

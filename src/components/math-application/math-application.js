@@ -71,9 +71,23 @@ customElements.define('math-application', class extends HTMLElement {
     this.shadowRoot.appendChild(multiplicationQuestion)
   }
 
-  showAdditionQuestion() {
+  showAdditionChoose() {
     this.clearShadowDOM()
-    const additionQuestion = document.createElement('addition-choose')
+    const additionChoose = document.createElement('addition-choose')
+    additionChoose.addEventListener('start-addition-game', (event) => {
+        const numbers = event.detail.numbers
+        const rounds = event.detail.rounds
+        const high = event.detail.high
+        const low = event.detail.low
+        this.showAdditionQuestion(numbers, rounds, high, low)
+    })
+    this.shadowRoot.appendChild(additionChoose)
+  }
+
+  showAdditionQuestion(numbers, rounds, high, low) {
+    this.clearShadowDOM()
+    const additionQuestion = document.createElement('addition-question')
+    additionQuestion.initialize(numbers, rounds, high, low)
     this.shadowRoot.appendChild(additionQuestion)
   }
 
