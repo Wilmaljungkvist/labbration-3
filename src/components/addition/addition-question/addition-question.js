@@ -35,7 +35,7 @@ button[type="submit"]:hover {
 </form>
   <div>
 `
-
+// TODO: Fix so the user can see and answer the questions.
 customElements.define('addition-question', class extends HTMLElement {
   constructor() {
     super()

@@ -26,10 +26,13 @@ button[type="submit"]:hover {
 }
 </style>
 <div class="container">
-    <h1>Vilken multiplikationstabell vill du öva på?</h1>
+    <h1>Multiplikation inställningar</h1>
     <form>
+    <label> Vilken multiplikationstabell vill du öva på?</label>
     <input id='numberChoose' name="numberChoose" type="number">
     <label> Hur många rundor?</label>
+    <input id='numberRounds' name="numberRounds" type="number" min="1">
+    <label> Vilket vill du ha som högsta numret att multiplicera med?</label>
     <input id='numberRounds' name="numberRounds" type="number">
     <button type="submit">Skicka</button>
 </form>

@@ -38,7 +38,7 @@ button[type="submit"]:hover {
 </form>
   <div>
 `
-
+// TODO: Fix so the user can choose how many rounds, how many numbers and numbers between what interval.
 customElements.define('addition-choose', class extends HTMLElement {
   constructor() {
     super()
