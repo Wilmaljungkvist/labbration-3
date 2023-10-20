@@ -1,4 +1,4 @@
-import { NumberGenerator } from "slumpgenerator";
+import { NumberGenerator, ArrayGenerator } from "slumpgenerator";
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -47,6 +47,7 @@ customElements.define('multiplication-question', class extends HTMLElement {
       .appendChild(template.content.cloneNode(true))
 
       this.numberGenerator = new NumberGenerator()
+      this.arrayGenerator = new ArrayGenerator()
       this.h1 = this.shadowRoot.querySelector('h1')
       this.form = this.shadowRoot.querySelector('form')
       this.input = this.shadowRoot.querySelector('#numberAnswer')
@@ -121,11 +122,19 @@ customElements.define('multiplication-question', class extends HTMLElement {
 connectedCallback() {
     this.form.addEventListener('submit', (event) => {
       event.preventDefault()
-      // TODO: Fixa så de kommer olika meddelanden.
-      const correctMessages = ['Korrekt, bra jobbat!', 'De va rätt, snyggt!', 'Ding ding, ett poäng till dig']
+      const correctMessages = [
+        'Korrekt, bra jobbat!',
+        'De va rätt, snyggt!',
+        'Ding ding, ett poäng till dig', 
+        'Bra gissat!',
+        'Du har helt rätt!',
+        'Du har verkligen koll.',
+        'Mitt i prick!'
+      ]
+      const index = this.arrayGenerator.getRandomArrayIndex(correctMessages)
       const userAnswer = parseInt(this.shadowRoot.querySelector('#numberAnswer').value)
       if (userAnswer === this.correctAnswer) {
-        this.h1.textContent = 'Korrekt, bra jobbat!'
+        this.h1.textContent = correctMessages[index]
         this.scoreCount += 1
         this.score.textContent = 'Poäng: ' + this.scoreCount + '/' + (this.currentRound + 1)
       } else {
