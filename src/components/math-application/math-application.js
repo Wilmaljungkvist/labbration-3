@@ -43,6 +43,10 @@ customElements.define('math-application', class extends HTMLElement {
       this.addEventListener('home-start', () => {
         this.homeScreen()
       })
+
+    this.addEventListener('addition-start', () => {
+        this.showAdditionChoose()
+    })
   }
 
   homeScreen() {

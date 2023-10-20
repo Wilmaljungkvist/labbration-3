@@ -36,7 +36,7 @@ button[type="submit"]:hover {
     <h1>Addition inställningar</h1>
     <form>
     <br><label>Hur många termer vill du ha? </label>
-    <input id='numberChoose' name="numberChoose" type="number">
+    <input id='numberChoose' name="numberChoose" type="number" min="2">
     <br><label>Hur många rundor?</label>
     <input id='numberRounds' name="numberRounds" type="number" min="1">
     <br><label>Högsta numret att addera med?</label>
@@ -47,7 +47,7 @@ button[type="submit"]:hover {
 </form>
   <div>
 `
-// TODO: Fix so the user can choose how many rounds, how many numbers and numbers between what interval.
+
 customElements.define('addition-choose', 
 class extends HTMLElement {
     constructor() {
