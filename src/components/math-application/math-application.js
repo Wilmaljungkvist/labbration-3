@@ -57,15 +57,17 @@ customElements.define('math-application', class extends HTMLElement {
     multiplicationChoose.addEventListener('start-multiplication-game', (event) => {
       const table = event.detail.table
       const rounds = event.detail.rounds
-      this.showMultiplicationQuestion(table, rounds)
+      const high = event.detail.high
+      const low = event.detail.low
+      this.showMultiplicationQuestion(table, rounds, high, low)
     })
     this.shadowRoot.appendChild(multiplicationChoose)
   }
 
-  showMultiplicationQuestion(table, rounds) {
+  showMultiplicationQuestion(table, rounds, high, low) {
     this.clearShadowDOM()
     const multiplicationQuestion = document.createElement('multiplication-question')
-    multiplicationQuestion.initialize(table, rounds)
+    multiplicationQuestion.initialize(table, rounds, high, low)
     this.shadowRoot.appendChild(multiplicationQuestion)
   }
 

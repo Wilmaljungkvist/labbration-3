@@ -11,6 +11,7 @@ template.innerHTML = `
 }
 
 button {
+    margin: 20px; 
     background-color: #ff66b2;
     color: #fff;
     padding: 10px 20px;
@@ -21,6 +22,12 @@ button {
     transition: background-color 0.3s;
 }
 
+input {
+    display: block;
+    margin-top: 5px;
+    width: 100%;
+}
+
 button[type="submit"]:hover {
     background-color: #ff3385;
 }
@@ -28,12 +35,14 @@ button[type="submit"]:hover {
 <div class="container">
     <h1>Multiplikation inställningar</h1>
     <form>
-    <label> Vilken multiplikationstabell vill du öva på?</label>
+    <br><label>Vilken multiplikationstabell vill du öva på?</label>
     <input id='numberChoose' name="numberChoose" type="number">
-    <label> Hur många rundor?</label>
+    <br><label>Hur många rundor?</label>
     <input id='numberRounds' name="numberRounds" type="number" min="1">
-    <label> Vilket vill du ha som högsta numret att multiplicera med?</label>
-    <input id='numberRounds' name="numberRounds" type="number">
+    <br><label>Högsta numret att multiplicera med?</label>
+    <input id='numberHigh' name="numberHigh" type="number">
+    <br><label>Lägsta numret att multiplicera med?</label>
+    <input id='numberLow' name="numberLow" type="number">
     <button type="submit">Skicka</button>
 </form>
   <div>
@@ -52,8 +61,10 @@ class extends HTMLElement {
      this.submitButton.addEventListener('click', () => {
         const multiplicationTable = this.shadowRoot.querySelector('#numberChoose').value;
         const numberOfRounds = this.shadowRoot.querySelector('#numberRounds').value;
+        const numberHigh = this.shadowRoot.querySelector('#numberHigh').value;
+        const numberLow = this.shadowRoot.querySelector('#numberLow').value;
         const event = new CustomEvent('start-multiplication-game', {
-          detail: { table: multiplicationTable, rounds: numberOfRounds },
+          detail: { table: multiplicationTable, rounds: numberOfRounds, high: numberHigh, low: numberLow },
           bubbles: true,
           composed: true,
         })

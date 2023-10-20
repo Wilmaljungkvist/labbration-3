@@ -13,6 +13,7 @@ template.innerHTML = `
 }
 
 button {
+    margin: 20px; 
     background-color: #ff66b2;
     color: #fff;
     padding: 10px 20px;
@@ -58,11 +59,15 @@ customElements.define('multiplication-question', class extends HTMLElement {
       this.totalRounds = 0
       this.table = 0
       this.scoreCount = 0
+      this.high = 0
+      this.low = 0
   }
 
-  initialize(table, rounds) {
+  initialize(table, rounds, high, low) {
     this.totalRounds = Number.parseInt(rounds)
     this.table = Number.parseInt(table)
+    this.high = Number.parseInt(high)
+    this.low = Number.parseInt(low)
     this.currentRound = 0
     this.startRound()
 }
@@ -107,7 +112,7 @@ customElements.define('multiplication-question', class extends HTMLElement {
 
   generateNewQuestion(table) {
       const num1 = Number.parseInt(table)
-      const num2 = this.numberGenerator.getRandomInt(0, num1)
+      const num2 = this.numberGenerator.getRandomInt(this.low, (this.high + 1))
 
     this.correctAnswer = num1 * num2
     this.h1.textContent = `What is ${num1} x ${num2}?`
