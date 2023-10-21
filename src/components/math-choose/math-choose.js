@@ -1,36 +1,12 @@
 const template = document.createElement('template')
 template.innerHTML = `
-<style>
-    .container {
-    width: 100%;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    text-align: center; 
-}
-
-button {
-    background-color: #ff66b2;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #ff3385;
-}
-</style>
 <div class="container">
     <h1>Vad vill du öva på?</h1>
     <form>
         <button class="multiplication">Multiplikation</button>
         <button class="addition">Addition</button>
         <button class="subtraction">Subtraktion</button>
+        <button class="division">Division</button>
 </form>
   <div>
 `
@@ -43,9 +19,16 @@ customElements.define('math-choose',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
+        const link = document.createElement('link')
+        link.setAttribute('rel', 'stylesheet')
+        link.setAttribute('href', '../../../public/css/styles.css')
+    
+        this.shadowRoot.appendChild(link)
+
         this.multiplication = this.shadowRoot.querySelector('.multiplication')
         this.subtraction = this.shadowRoot.querySelector('.subtraction')
         this.addition = this.shadowRoot.querySelector('.addition')
+        this.division = this.shadowRoot.querySelector('.division')
 
         this.multiplication.addEventListener('click', () => {
           const event = new Event('multiplication-selected', {bubbles: true, composed: true})
@@ -59,6 +42,11 @@ customElements.define('math-choose',
 
         this.subtraction.addEventListener('click', () => {
           const event = new Event('subtraction-selected', {bubbles: true, composed: true})
+          this.dispatchEvent(event)
+        })
+
+        this.division.addEventListener('click', () => {
+          const event = new Event('division-selected', {bubbles: true, composed: true})
           this.dispatchEvent(event)
         })
     }

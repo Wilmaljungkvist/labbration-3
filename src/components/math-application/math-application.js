@@ -1,11 +1,11 @@
 
 import '../math-choose/index.js'
-import '../multiplication/multiplication-question/index.js'
-import '../multiplication/multiplication-choose/index.js'
-import '../addition/addition-question/index.js'
-import '../addition/addition-choose/index.js'
+import '../multiplication-division/multiplication-question/index.js'
+import '../multiplication-division/multiplication-choose/index.js'
+import '../addition-subtraction/addition-subtraction-question/index.js'
+import '../addition-subtraction/addition-subtraction-choose/index.js'
 import '../subtraction/subtraction-question/index.js'
-import '../multiplication/multiplication-question/index.js'
+import '../multiplication-division/multiplication-question/index.js'
 
 
 const template = document.createElement('template')
@@ -35,6 +35,10 @@ customElements.define('math-application', class extends HTMLElement {
     this.mathChoose.addEventListener('subtraction-selected', () => {
       this.showSubtractionQuestion()
     })
+
+    this.mathChoose.addEventListener('division-selected', () => {
+        this.showDivisionQuestion()
+      })
 
     this.addEventListener('multiply-start', () => {
         this.showMultiplicationChoose()
@@ -99,6 +103,12 @@ customElements.define('math-application', class extends HTMLElement {
     this.clearShadowDOM()
     const subtractionQuestion = document.createElement('subtraction-question')
     this.shadowRoot.appendChild(subtractionQuestion)
+  }
+
+  showDivisionQuestion() {
+    this.clearShadowDOM()
+    const divisionQuestion = document.createElement('division-question')
+    this.shadowRoot.appendChild(divisionQuestion)
   }
 
   clearShadowDOM() {
