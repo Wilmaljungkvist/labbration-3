@@ -34,12 +34,12 @@ customElements.define('math-application', class extends HTMLElement {
         this.showMultiplicationChoose()
       })
 
-    this.addEventListener('home-start', () => {
-        this.showMathChoose()
-    })
-
     this.addEventListener('addition-start', () => {
         this.showAdditionChoose()
+    })
+
+    this.addEventListener('home-start', () => {
+        this.showMathChoose()
     })
   }
 
@@ -57,15 +57,15 @@ customElements.define('math-application', class extends HTMLElement {
       const rounds = event.detail.rounds
       const high = event.detail.high
       const low = event.detail.low
-      this.showMultiplicationQuestion(table, rounds, high, low)
+      this.showMultiplicationQuestion(table, rounds, highestNumber, lowestNumber)
     })
     this.shadowRoot.appendChild(multiplicationChoose)
   }
 
-  showMultiplicationQuestion(table, rounds, high, low) {
+  showMultiplicationQuestion(table, rounds, highestNumber, lowestNumber) {
     this.clearShadowDOM()
     const multiplicationDivisionQuestion = document.createElement('multiplication-question')
-    multiplicationDivisionQuestion.initialize(table, rounds, high, low, )
+    multiplicationDivisionQuestion.initialize(table, rounds, highestNumber, lowestNumber)
     this.shadowRoot.appendChild(multiplicationDivisionQuestion)
   }
 

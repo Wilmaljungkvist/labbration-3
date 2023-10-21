@@ -44,7 +44,7 @@ customElements.define('addition-question', class extends HTMLElement {
       this.submit = this.shadowRoot.querySelector('#submit')
       this.container = this.shadowRoot.querySelector('.container')
       this.correctAnswer = 0
-      this.currentRound = 1
+      this.currrentRound = 1
       this.totalRounds = 0
       this.numbers = 0
       this.scoreCount = 0
