@@ -21,23 +21,32 @@ customElements.define('math-choose',
 
         this.loadExternalCss()
 
+        this.initializeVariables()
 
-        this.multiplication = this.shadowRoot.querySelector('.multiplication')
+        this.dispatchAdditionEvent()
+        this.dispatchMultiplicationEvent()
+        // TODO: implement division and subtraction.
+    }
+
+    dispatchAdditionEvent() {
+      this.addition.addEventListener('click', () => {
+      const event = new Event('addition-selected', {bubbles: true, composed: true})
+      this.dispatchEvent(event)
+      })
+    }
+
+    dispatchMultiplicationEvent() {
+      this.multiplication.addEventListener('click', () => {
+        const event = new Event('multiplication-selected', {bubbles: true, composed: true})
+        this.dispatchEvent(event)
+      })
+    }
+
+    initializeVariables() {
+      this.multiplication = this.shadowRoot.querySelector('.multiplication')
         this.subtraction = this.shadowRoot.querySelector('.subtraction')
         this.addition = this.shadowRoot.querySelector('.addition')
         this.division = this.shadowRoot.querySelector('.division')
-
-        this.multiplication.addEventListener('click', () => {
-          const event = new Event('multiplication-selected', {bubbles: true, composed: true})
-          this.dispatchEvent(event)
-        })
-
-        this.addition.addEventListener('click', () => {
-          const event = new Event('addition-selected', {bubbles: true, composed: true})
-          this.dispatchEvent(event)
-        })
-
-        // TODO: implement division and subtraction.
     }
 
     loadExternalCss() {
