@@ -1,11 +1,8 @@
 
 import '../math-choose/index.js'
-import '../multiplication-division/multiplication-question/index.js'
-import '../multiplication-division/multiplication-choose/index.js'
-import '../addition-subtraction/addition-subtraction-question/index.js'
-import '../addition-subtraction/addition-subtraction-choose/index.js'
-import '../subtraction/subtraction-question/index.js'
-import '../multiplication-division/multiplication-question/index.js'
+import '../multiplication/multiplication-question/index.js'
+import '../multiplication/multiplication-choose/index.js'
+import '../addition/addition-question/index.js'
 
 
 const template = document.createElement('template')
@@ -61,22 +58,23 @@ customElements.define('math-application', class extends HTMLElement {
 
   showMultiplicationChoose() {
     this.clearShadowDOM()
-    const multiplicationChoose = document.createElement('multiplication-choose')
-    multiplicationChoose.addEventListener('start-multiplication-game', (event) => {
+    const multiplicationChoose = document.createElement('multiplication-division-choose')
+    const multiplication = 'multiplication'
+    multiplicationChoose.addEventListener('multiplication-division-game', (event) => {
       const table = event.detail.table
       const rounds = event.detail.rounds
       const high = event.detail.high
       const low = event.detail.low
-      this.showMultiplicationQuestion(table, rounds, high, low)
+      this.showMultiplicationQuestion(table, rounds, high, low, multiplication)
     })
     this.shadowRoot.appendChild(multiplicationChoose)
   }
 
-  showMultiplicationQuestion(table, rounds, high, low) {
+  showMultiplicationQuestion(table, rounds, high, low, diviOrMulti) {
     this.clearShadowDOM()
-    const multiplicationQuestion = document.createElement('multiplication-question')
-    multiplicationQuestion.initialize(table, rounds, high, low)
-    this.shadowRoot.appendChild(multiplicationQuestion)
+    const multiplicationDivisionQuestion = document.createElement('multiplication-question')
+    multiplicationDivisionQuestion.initialize(table, rounds, high, low, diviOrMulti)
+    this.shadowRoot.appendChild(multiplicationDivisionQuestion)
   }
 
   showAdditionChoose() {
@@ -101,14 +99,22 @@ customElements.define('math-application', class extends HTMLElement {
 
   showSubtractionQuestion() {
     this.clearShadowDOM()
-    const subtractionQuestion = document.createElement('subtraction-question')
+    const subtractionQuestion = document.createElement('addition-question')
     this.shadowRoot.appendChild(subtractionQuestion)
   }
 
-  showDivisionQuestion() {
+  showDivisionChoose() {
     this.clearShadowDOM()
-    const divisionQuestion = document.createElement('division-question')
-    this.shadowRoot.appendChild(divisionQuestion)
+    const divisionChoose = document.createElement('multiplication-division-choose')
+    const division = 'division'
+    divisionChoose.addEventListener('multiplication-division-game', (event) => {
+      const table = event.detail.table
+      const rounds = event.detail.rounds
+      const high = event.detail.high
+      const low = event.detail.low
+      this.showMultiplicationQuestion(table, rounds, high, low, division)
+    })
+    this.shadowRoot.appendChild(divisionChoose)
   }
 
   clearShadowDOM() {

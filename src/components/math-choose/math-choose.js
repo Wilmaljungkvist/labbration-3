@@ -5,8 +5,8 @@ template.innerHTML = `
     <form>
         <button class="multiplication">Multiplikation</button>
         <button class="addition">Addition</button>
-        <button class="subtraction">Subtraktion</button>
-        <button class="division">Division</button>
+        <!-- <button class="subtraction">Subtraktion</button>
+        <button class="division">Division</button> -->
 </form>
   <div>
 `
@@ -19,11 +19,11 @@ customElements.define('math-choose',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
-        const link = document.createElement('link')
-        link.setAttribute('rel', 'stylesheet')
-        link.setAttribute('href', '../../../public/css/styles.css')
-    
-        this.shadowRoot.appendChild(link)
+        const css = document.createElement('link')
+        css.setAttribute('rel', 'stylesheet')
+        css.setAttribute('href', '../../../public/css/styles.css')
+        this.shadowRoot.appendChild(css)
+
 
         this.multiplication = this.shadowRoot.querySelector('.multiplication')
         this.subtraction = this.shadowRoot.querySelector('.subtraction')
@@ -40,15 +40,17 @@ customElements.define('math-choose',
           this.dispatchEvent(event)
         })
 
-        this.subtraction.addEventListener('click', () => {
-          const event = new Event('subtraction-selected', {bubbles: true, composed: true})
-          this.dispatchEvent(event)
-        })
+        // TODO: implement division and subtraction.
+        
+        // this.subtraction.addEventListener('click', () => {
+        //   const event = new Event('subtraction-selected', {bubbles: true, composed: true})
+        //   this.dispatchEvent(event)
+        // })
 
-        this.division.addEventListener('click', () => {
-          const event = new Event('division-selected', {bubbles: true, composed: true})
-          this.dispatchEvent(event)
-        })
+        // this.division.addEventListener('click', () => {
+        //   const event = new Event('division-selected', {bubbles: true, composed: true})
+        //   this.dispatchEvent(event)
+        // })
     }
   }
 )
