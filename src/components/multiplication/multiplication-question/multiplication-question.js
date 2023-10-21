@@ -109,11 +109,11 @@ customElements.define('multiplication-question', class extends HTMLElement {
   }
 
   generateNewQuestion(table) {
-    const num1 = Number.parseInt(table)
-    const num2 = this.numberGenerator.getRandomInt(this.low, (this.high + 1))
+    const firstNumberToMultiply = Number.parseInt(table)
+    const secondNumberToMultiply = this.numberGenerator.getRandomInt(this.low, (this.high + 1))
 
-    this.correctAnswer = num1 * num2
-    this.h1.textContent = `What is ${num1} x ${num2}?`
+    this.correctAnswer = firstNumberToMultiply * secondNumberToMultiply
+    this.h1.textContent = `What is ${firstNumberToMultiply} x ${secondNumberToMultiply}?`
 }
 
 handleUserAnswer() {

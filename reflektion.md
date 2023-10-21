@@ -11,7 +11,7 @@ Jag kommer även titta på och bedöma er kod. Den skall därför i största må
 att kunna fortsätta utvecklas av andra programmerare.
 
 ## Kapitel 2 - Meaningful Names
-
+Från kapitel 2 har jag tagit med många saker i koden. 
 ## Kapitel 3 - Functions
 
 ## Kapitel 4
