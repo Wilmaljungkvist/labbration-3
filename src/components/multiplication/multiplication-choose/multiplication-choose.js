@@ -33,10 +33,10 @@ class extends HTMLElement {
 
  submitMultiplicationSettings() {
   this.submitButton.addEventListener('click', () => {
-    this.multiplicationTable = this.shadowRoot.querySelector('#numberChoose').value;
-    this.numberOfRounds = this.shadowRoot.querySelector('#numberRounds').value;
-    this.numberHigh = this.shadowRoot.querySelector('#numberHigh').value;
-    this.numberLow = this.shadowRoot.querySelector('#numberLow').value;
+    this.multiplicationTable = this.shadowRoot.querySelector('#numberChoose').value
+    this.numberOfRounds = this.shadowRoot.querySelector('#numberRounds').value
+    this.numberHigh = this.shadowRoot.querySelector('#numberHigh').value
+    this.numberLow = this.shadowRoot.querySelector('#numberLow').value
     this.dispatchStartMultiplicationEvent()
 })
  }

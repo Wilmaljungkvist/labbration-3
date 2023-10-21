@@ -24,28 +24,36 @@ class extends HTMLElement {
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
-        this.loadExternalCss('../../../public/css/styles.css')
+        this.loadExternalCss()
   
         this.submitButton = this.shadowRoot.querySelector('button')
-  
-       this.submitButton.addEventListener('click', () => {
-          const numbersAdd = this.shadowRoot.querySelector('#numberChoose').value;
-          const numberOfRounds = this.shadowRoot.querySelector('#numberRounds').value;
-          const numberHigh = this.shadowRoot.querySelector('#numberHigh').value;
-          const numberLow = this.shadowRoot.querySelector('#numberLow').value;
-          const event = new CustomEvent('start-addition-game', {
-            detail: { numbers: numbersAdd, rounds: numberOfRounds, high: numberHigh, low: numberLow },
-            bubbles: true,
-            composed: true,
-          })
-          this.dispatchEvent(event)
-    })
+
+        this.submitAdditionSetting()
    }
 
-   loadExternalCss(path) {
+   loadExternalCss() {
     const link = document.createElement('link')
         link.setAttribute('rel', 'stylesheet')
         link.setAttribute('href', '../../../public/css/styles.css')
-        this.shadowRoot.appendChild(css)
+        this.shadowRoot.appendChild(link)
   }
+
+  submitAdditionSetting() {
+    this.submitButton.addEventListener('click', () => {
+      this.numbersAdd = this.shadowRoot.querySelector('#numberChoose').value
+      this.numberOfRounds = this.shadowRoot.querySelector('#numberRounds').value
+      this.numberHigh = this.shadowRoot.querySelector('#numberHigh').value
+      this.numberLow = this.shadowRoot.querySelector('#numberLow').value
+      this.dispatchStartAddition()
+  }
+    )}
+
+    dispatchStartAddition () {
+      const event = new CustomEvent('start-addition-game', {
+        detail: { numbers: this.numbersAdd, rounds: this.numberOfRounds, high: this.numberHigh, low: this.numberLow },
+        bubbles: true,
+        composed: true,
+      })
+      this.dispatchEvent(event)
+    }
 })
