@@ -46,6 +46,11 @@ customElements.define('multiplication-question', class extends HTMLElement {
     this.attachShadow({ mode: 'open' })
       .appendChild(template.content.cloneNode(true))
 
+      const css = document.createElement('link')
+        css.setAttribute('rel', 'stylesheet')
+        css.setAttribute('href', '../../../public/css/styles.css')
+        this.shadowRoot.appendChild(css)
+
       this.numberGenerator = new NumberGenerator()
       this.arrayGenerator = new ArrayGenerator()
       this.h1 = this.shadowRoot.querySelector('h1')

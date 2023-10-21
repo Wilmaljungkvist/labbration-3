@@ -9,3 +9,25 @@ icke självklara överväganden med olika kvalitetsregler som står i konflikt m
 dessa extra intressanta.
 Jag kommer även titta på och bedöma er kod. Den skall därför i största mån vara skriven för
 att kunna fortsätta utvecklas av andra programmerare.
+
+## Kapitel 2 - Meaningful Names
+
+## Kapitel 3 - Functions
+
+## Kapitel 4
+
+## Kapitel 5
+
+## Kapitel 6
+
+## Kapitel 7
+
+## Kapitel 8 
+
+## Kapitel 8
+
+## Kapitel 9 
+
+## Kapitel 10 
+
+## Kapitel 11

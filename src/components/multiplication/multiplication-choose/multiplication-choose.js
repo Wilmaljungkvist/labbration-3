@@ -1,37 +1,5 @@
 const template = document.createElement('template');
 template.innerHTML = `
-  <style>
-    .container {
-    width: 100%;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    text-align: center; 
-}
-
-button {
-    margin: 20px; 
-    background-color: #ff66b2;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-input {
-    display: block;
-    margin-top: 5px;
-    width: 100%;
-}
-
-button[type="submit"]:hover {
-    background-color: #ff3385;
-}
-</style>
 <div class="container">
     <h1>Multiplikation inställningar</h1>
     <form>
@@ -55,6 +23,11 @@ class extends HTMLElement {
 
     this.attachShadow({ mode: 'open' })
       .appendChild(template.content.cloneNode(true))
+
+      const css = document.createElement('link')
+        css.setAttribute('rel', 'stylesheet')
+        css.setAttribute('href', '../../../public/css/styles.css')
+        this.shadowRoot.appendChild(css)
 
       this.submitButton = this.shadowRoot.querySelector('button')
 

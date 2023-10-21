@@ -32,3 +32,9 @@ button {
 button:hover {
     background-color: #ff3385;
 }
+
+input {
+    display: block;
+    margin-top: 5px;
+    width: 100%;
+}
