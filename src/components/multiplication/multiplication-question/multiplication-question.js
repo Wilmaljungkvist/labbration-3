@@ -3,12 +3,12 @@ import { NumberGenerator, ArrayGenerator } from "slumpgenerator";
 const template = document.createElement('template');
 template.innerHTML = `
 <div class="container">
-  <p>Score: 0</p>
+  <p>Poäng: 0</p>
     <h1></h1>
     <form>
-    <label for="answer">Please write your answer: </label>
+    <label for="answer">Skriv ditt svar: </label>
     <input id='numberAnswer' name="answer" type="number" placeholder="Write and press enter">
-    <button type="submit" id="submit">Submit</button>
+    <button type="submit" id="submit">Svara</button>
 </form>
   <div>
 `
@@ -30,26 +30,26 @@ customElements.define('multiplication-question', class extends HTMLElement {
 
   loadExternalCss() {
     const link = document.createElement('link')
-        link.setAttribute('rel', 'stylesheet')
-        link.setAttribute('href', '../../../public/css/styles.css')
-        this.shadowRoot.appendChild(css)
+    link.setAttribute('rel', 'stylesheet')
+    link.setAttribute('href', '../../../public/css/styles.css')
+    this.shadowRoot.appendChild(link)
   }
 
   initializeVariables() {
     this.h1 = this.shadowRoot.querySelector('h1')
-      this.form = this.shadowRoot.querySelector('form')
-      this.numberAnswer = this.shadowRoot.querySelector('#numberAnswer')
-      this.score = this.shadowRoot.querySelector('p')
-      this.label = this.shadowRoot.querySelector('label')
-      this.submit = this.shadowRoot.querySelector('#submit')
-      this.container = this.shadowRoot.querySelector('.container')
-      this.correctAnswer = 0
-      this.currentRound = 0
-      this.totalRounds = 0
-      this.table = 0
-      this.scoreCount = 0
-      this.high = 0
-      this.low = 0
+    this.form = this.shadowRoot.querySelector('form')
+    this.numberAnswer = this.shadowRoot.querySelector('#numberAnswer')
+    this.score = this.shadowRoot.querySelector('p')
+    this.label = this.shadowRoot.querySelector('label')
+    this.submit = this.shadowRoot.querySelector('#submit')
+    this.container = this.shadowRoot.querySelector('.container')
+    this.correctAnswer = 0
+    this.currentRound = 1
+    this.totalRounds = 0
+    this.table = 0
+    this.scoreCount = 0
+    this.high = 0
+    this.low = 0
   }
 
   initialize(table, rounds, high, low) {
@@ -63,10 +63,10 @@ customElements.define('multiplication-question', class extends HTMLElement {
 
   startRound() {
     this.numberAnswer.value = ''
-    if (this.currentRound < this.totalRounds) {
+    if (this.currentRound <= this.totalRounds) {
       this.generateNewQuestion(this.table)
     } else {
-      handleGameOver()
+      this.handleGameOver()
     }
   }
 
@@ -113,7 +113,7 @@ customElements.define('multiplication-question', class extends HTMLElement {
     const secondNumberToMultiply = this.numberGenerator.getRandomInt(this.low, (this.high + 1))
 
     this.correctAnswer = firstNumberToMultiply * secondNumberToMultiply
-    this.h1.textContent = `What is ${firstNumberToMultiply} x ${secondNumberToMultiply}?`
+    this.h1.textContent = `Vad är ${firstNumberToMultiply} x ${secondNumberToMultiply}?`
 }
 
 handleUserAnswer() {
@@ -146,7 +146,7 @@ handleUserAnswer() {
 }
 
 updateScore() {
-  this.score.textContent = 'Poäng: ' + this.scoreCount + '/' + (this.currentRound + 1)
+  this.score.textContent = 'Poäng: ' + this.scoreCount + '/' + (this.currentRound)
 }
 
 connectedCallback() {
