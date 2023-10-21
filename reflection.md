@@ -13,7 +13,10 @@ Allt det som syns i denna bilden var tidigare en del av en enda metod, vilket gj
 ![Bild på kod](images/dry.png)
 
 ## Kapitel 4
+Det här kapitlet har minskat mitt behov av att skriva onödiga kommentarer i min kod. Tidigare brukade jag kommentera allt, även om variabelnamnen redan var ganska självförklarande. Det ledde till överflödiga och röriga kommentarer som faktiskt gjorde koden mindre snygg istället för att förbättra förståelsen. Dessutom märkte jag att jag ibland fokuserade på att upprepa uppenbar information istället för att fokusera på att förklara de viktiga detaljerna som inte var lika uppenbara.
 
+Den här kommentaren saknar information om att metoden kan kasta ett fel om maxvärdet är mindre än minvärdet. Det skulle vara mer användbart att inkludera denna information direkt i kommentaren istället för att tvinga läsaren att titta i metoden för att upptäcka det.
+![Bild på kommentar](images/comment.png)
 ## Kapitel 5
 
 ## Kapitel 6
