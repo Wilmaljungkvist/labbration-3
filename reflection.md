@@ -19,7 +19,9 @@ Jag har även använt mig av TODO kommentarer för att framtida jag ska veta vad
 
 Den här kommentaren saknar information om att metoden kan kasta ett fel om maxvärdet är mindre än minvärdet. Det skulle vara mer användbart att inkludera denna information direkt i kommentaren istället för att tvinga läsaren att titta i metoden för att upptäcka det.
 ![Bild på kommentar](images/comment.png)
+
 ## Kapitel 5
+När det kommer till vertical formatting så är det inga av mina filer som är längre än 200 rader och om en fil blev för stor eller hade för många uppgifter delade jag upp de i fler klasser. Det är även intressant att läsa om hur boken vill att funktioner/metoder och variabler ska placeras i en klass för det är något som jag aldrig tänkt på innan. Men när jag väl började ha funktioner som anropas under den som anropar och lokala variabler högst upp i en funktion så blev det mycket lättare att läsa och hitta. Jag valde även att ha indentering som boken föreslår då de är detta jag varit van vid tidigare. Boken föreslog även att rader oftast är cirka 80-120 karaktärer långa så jag valde att sätta min egna gräns på 100 för denna upgift. 
 
 ## Kapitel 6
 
