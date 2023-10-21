@@ -34,19 +34,19 @@ customElements.define('math-application', class extends HTMLElement {
         this.showMultiplicationChoose()
       })
 
-      this.addEventListener('home-start', () => {
-        this.homeScreen()
-      })
+    this.addEventListener('home-start', () => {
+        this.showMathChoose()
+    })
 
     this.addEventListener('addition-start', () => {
         this.showAdditionChoose()
     })
   }
 
-  homeScreen() {
-    this.clearShadowDOM()
-    const homeScreen = document.createElement('math-choose')
-    this.shadowRoot.appendChild(homeScreen)
+
+  showMathChoose() {
+    const mathChoose = document.createElement('math-choose')
+    this.shadowRoot.appendChild(mathChoose)
   }
 
   showMultiplicationChoose() {
@@ -72,6 +72,7 @@ customElements.define('math-application', class extends HTMLElement {
   showAdditionChoose() {
     this.clearShadowDOM()
     const additionChoose = document.createElement('addition-choose')
+    this.shadowRoot.appendChild(additionChoose)
     additionChoose.addEventListener('start-addition-game', (event) => {
         const numbers = event.detail.numbers
         const rounds = event.detail.rounds
@@ -79,7 +80,6 @@ customElements.define('math-application', class extends HTMLElement {
         const low = event.detail.low
         this.showAdditionQuestion(numbers, rounds, high, low)
     })
-    this.shadowRoot.appendChild(additionChoose)
   }
 
   showAdditionQuestion(numbers, rounds, high, low) {
