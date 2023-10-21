@@ -2,32 +2,6 @@ import { NumberGenerator, ArrayGenerator } from "slumpgenerator";
 
 const template = document.createElement('template');
 template.innerHTML = `
-  <style>
-    .container {
-    width: 100%;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    text-align: center; 
-}
-
-button {
-    margin: 20px; 
-    background-color: #ff66b2;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #ff3385;
-}
-</style>
 <div class="container">
   <p>Score: 0</p>
     <h1></h1>
@@ -46,16 +20,23 @@ customElements.define('multiplication-question', class extends HTMLElement {
     this.attachShadow({ mode: 'open' })
       .appendChild(template.content.cloneNode(true))
 
-      const css = document.createElement('link')
-        css.setAttribute('rel', 'stylesheet')
-        css.setAttribute('href', '../../../public/css/styles.css')
-        this.shadowRoot.appendChild(css)
-
       this.numberGenerator = new NumberGenerator()
       this.arrayGenerator = new ArrayGenerator()
-      this.h1 = this.shadowRoot.querySelector('h1')
+      this.loadExternalCss('../../../public/css/styles.css')
+      this.initializeVariables()
+  }
+
+  loadExternalCss(path) {
+    const link = document.createElement('link')
+        link.setAttribute('rel', 'stylesheet')
+        link.setAttribute('href', '../../../public/css/styles.css')
+        this.shadowRoot.appendChild(css)
+  }
+
+  initializeVariables() {
+    this.h1 = this.shadowRoot.querySelector('h1')
       this.form = this.shadowRoot.querySelector('form')
-      this.input = this.shadowRoot.querySelector('#numberAnswer')
+      this.numberAnswer = this.shadowRoot.querySelector('#numberAnswer')
       this.score = this.shadowRoot.querySelector('p')
       this.label = this.shadowRoot.querySelector('label')
       this.submit = this.shadowRoot.querySelector('#submit')
@@ -80,7 +61,7 @@ customElements.define('multiplication-question', class extends HTMLElement {
 
 
   startRound() {
-    this.input.value = ''
+    this.numberAnswer.value = ''
     if (this.currentRound < this.totalRounds) {
       this.generateNewQuestion(this.table)
     } else {
@@ -110,7 +91,7 @@ customElements.define('multiplication-question', class extends HTMLElement {
       })
 
       this.label.textContent = 'Bra jobbat! Vad vill du göra nu?'
-      this.input.remove()
+      this.numberAnswer.remove()
       this.submit.remove()
     }
   }

@@ -27,6 +27,7 @@ customElements.define('addition-question', class extends HTMLElement {
 
       this.numberGenerator = new NumberGenerator()
       this.arrayGenerator = new ArrayGenerator()
+      this.loadExternalCss('../../../public/css/styles.css')
       this.h1 = this.shadowRoot.querySelector('h1')
       this.form = this.shadowRoot.querySelector('form')
       this.input = this.shadowRoot.querySelector('#numberAnswer')
@@ -41,6 +42,13 @@ customElements.define('addition-question', class extends HTMLElement {
       this.scoreCount = 0
       this.high = 0
       this.low = 0
+  }
+
+  loadExternalCss(path) {
+    const link = document.createElement('link')
+        link.setAttribute('rel', 'stylesheet')
+        link.setAttribute('href', '../../../public/css/styles.css')
+        this.shadowRoot.appendChild(css)
   }
 
   initialize(numbers, rounds, high, low) {

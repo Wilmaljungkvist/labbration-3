@@ -19,10 +19,7 @@ customElements.define('math-choose',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
-        const css = document.createElement('link')
-        css.setAttribute('rel', 'stylesheet')
-        css.setAttribute('href', '../../../public/css/styles.css')
-        this.shadowRoot.appendChild(css)
+        this.loadExternalCss('../../../public/css/styles.css')
 
 
         this.multiplication = this.shadowRoot.querySelector('.multiplication')
@@ -41,16 +38,12 @@ customElements.define('math-choose',
         })
 
         // TODO: implement division and subtraction.
-        
-        // this.subtraction.addEventListener('click', () => {
-        //   const event = new Event('subtraction-selected', {bubbles: true, composed: true})
-        //   this.dispatchEvent(event)
-        // })
-
-        // this.division.addEventListener('click', () => {
-        //   const event = new Event('division-selected', {bubbles: true, composed: true})
-        //   this.dispatchEvent(event)
-        // })
     }
-  }
-)
+
+    loadExternalCss(path) {
+      const link = document.createElement('link')
+          link.setAttribute('rel', 'stylesheet')
+          link.setAttribute('href', '../../../public/css/styles.css')
+          this.shadowRoot.appendChild(css)
+    }
+  })

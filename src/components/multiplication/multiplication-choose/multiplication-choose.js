@@ -24,10 +24,7 @@ class extends HTMLElement {
     this.attachShadow({ mode: 'open' })
       .appendChild(template.content.cloneNode(true))
 
-      const css = document.createElement('link')
-        css.setAttribute('rel', 'stylesheet')
-        css.setAttribute('href', '../../../public/css/styles.css')
-        this.shadowRoot.appendChild(css)
+      this.loadExternalCss('../../../public/css/styles.css')
 
       this.submitButton = this.shadowRoot.querySelector('button')
 
@@ -44,4 +41,11 @@ class extends HTMLElement {
         this.dispatchEvent(event)
   })
  }
+
+ loadExternalCss(path) {
+  const link = document.createElement('link')
+      link.setAttribute('rel', 'stylesheet')
+      link.setAttribute('href', '../../../public/css/styles.css')
+      this.shadowRoot.appendChild(css)
+}
 })
