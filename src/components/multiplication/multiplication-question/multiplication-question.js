@@ -7,7 +7,7 @@ template.innerHTML = `
     <h1></h1>
     <form>
     <label for="answer">Skriv ditt svar: </label>
-    <input id='numberAnswer' name="answer" type="number" placeholder="Write and press enter">
+    <input id='numberAnswer' name="answer" type="number">
     <button type="submit" id="submit">Svara</button>
 </form>
   <div>

@@ -28,18 +28,26 @@ class extends HTMLElement {
 
       this.submitButton = this.shadowRoot.querySelector('button')
 
-     this.submitButton.addEventListener('click', () => {
-        const multiplicationTable = this.shadowRoot.querySelector('#numberChoose').value;
-        const numberOfRounds = this.shadowRoot.querySelector('#numberRounds').value;
-        const numberHigh = this.shadowRoot.querySelector('#numberHigh').value;
-        const numberLow = this.shadowRoot.querySelector('#numberLow').value;
-        const event = new CustomEvent('start-multiplication-game', {
-          detail: { table: multiplicationTable, rounds: numberOfRounds, high: numberHigh, low: numberLow },
-          bubbles: true,
-          composed: true,
-        })
-        this.dispatchEvent(event)
+      this.submitMultiplicationSettings()
+ }
+
+ submitMultiplicationSettings() {
+  this.submitButton.addEventListener('click', () => {
+    this.multiplicationTable = this.shadowRoot.querySelector('#numberChoose').value;
+    this.numberOfRounds = this.shadowRoot.querySelector('#numberRounds').value;
+    this.numberHigh = this.shadowRoot.querySelector('#numberHigh').value;
+    this.numberLow = this.shadowRoot.querySelector('#numberLow').value;
+    this.dispatchStartMultiplicationEvent()
+})
+ }
+
+ dispatchStartMultiplicationEvent() {
+  const event = new CustomEvent('start-multiplication-game', {
+    detail: { table: this.multiplicationTable, rounds: this.numberOfRounds, high: this.numberHigh, low: this.numberLow },
+    bubbles: true,
+    composed: true,
   })
+  this.dispatchEvent(event)
  }
 
  loadExternalCss() {
