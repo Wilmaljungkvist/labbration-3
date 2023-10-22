@@ -46,7 +46,7 @@ class extends HTMLElement {
 
     /**
      * Get the settings to the addition. 
-     * Throws error if highest number is smaller than lowest number. 
+     * Throws an error if highest number is smaller than lowest number. 
      */
     getAdditionSetting() {
       const numbers = this.shadowRoot.querySelector('#numberChoose').value
@@ -58,7 +58,7 @@ class extends HTMLElement {
       const minValue = Number.parseInt(highestNumber) - 1
       this.#handleHighestLowestNumber(minValue, lowestNumber)
 
-      if(this.#handleErrors()) {
+      if(this.#handleErrors(lowestNumber.value, highestNumber)) {
       this.dispatchAdditionSettingsEvent(numbers, rounds, highestNumber, lowestNumber.value)
       } 
     }
@@ -68,7 +68,7 @@ class extends HTMLElement {
     }
 
     /**
-     * Dispatches the event with the clients settings. 
+     * Dispatches the event with the addition settings. 
      */
     dispatchAdditionSettingsEvent (numbers, rounds, highestNumber, lowestNumber) {
       const event = new CustomEvent('start-addition-game', {

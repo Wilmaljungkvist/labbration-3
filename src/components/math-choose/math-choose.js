@@ -17,9 +17,9 @@ customElements.define('math-choose',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
-        this.loadExternalCss()
+        this.#loadExternalCss()
 
-        this.initializeVariables()
+        this.#initializeVariables()
 
         this.dispatchAdditionEvent()
         this.dispatchMultiplicationEvent()
@@ -46,14 +46,14 @@ customElements.define('math-choose',
       })
     }
 
-    initializeVariables() {
+    #initializeVariables() {
       this.multiplication = this.shadowRoot.querySelector('.multiplication')
       this.subtraction = this.shadowRoot.querySelector('.subtraction')
       this.addition = this.shadowRoot.querySelector('.addition')
       this.division = this.shadowRoot.querySelector('.division')
     }
 
-    loadExternalCss() {
+    #loadExternalCss() {
       const link = document.createElement('link')
           link.setAttribute('rel', 'stylesheet')
           link.setAttribute('href', '../../../public/css/styles.css')
