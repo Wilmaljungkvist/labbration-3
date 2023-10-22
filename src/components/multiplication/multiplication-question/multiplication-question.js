@@ -54,7 +54,7 @@ customElements.define('multiplication-question', class extends HTMLElement {
     this.#currentScore = 0
   }
 
-  initialize(table, rounds, high, low) {
+  initializeSettings(table, rounds, high, low) {
     this.#table = Number.parseInt(table, 10)
     this.#totalRounds = Number.parseInt(rounds, 10)
     this.#high = Number.parseInt(high, 10)
