@@ -1,6 +1,6 @@
-import { NumberGenerator, ArrayGenerator } from "slumpgenerator";
+import { NumberGenerator, ArrayGenerator } from 'slumpgenerator'
 
-const template = document.createElement('template');
+const template = document.createElement('template')
 template.innerHTML = `
 <div class="container">
   <p>Poäng: 0</p>

@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/Wilmaljungkvist/labbration-3#readme",
   "dependencies": {
-    "slumpgenerator": "^1.0.4",
+    "slumpgenerator": "^1.0.6",
     "vite": "^4.4.9"
   }
 }
