@@ -17,18 +17,30 @@ template.innerHTML = `
 `
 
 customElements.define('addition-choose', 
+
 class extends HTMLElement {
+  numbersAdd
+  numberOfRounds
+  numberHigh
+  numberLow
+
+  #submitButton
+  
     constructor() {
       super()
   
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
+  
+        this.#submitButton = this.shadowRoot.querySelector('button')
 
         this.loadExternalCss()
-  
-        this.submitButton = this.shadowRoot.querySelector('button')
-
         this.submitAdditionSetting()
+        this.setEventListener()
+   }
+
+   setEventListener() {
+    this.#submitButton.addEventListener('click', () => { submitAdditionSettings() })
    }
 
    loadExternalCss() {
@@ -39,18 +51,16 @@ class extends HTMLElement {
   }
 
   submitAdditionSetting() {
-    this.submitButton.addEventListener('click', () => {
-      this.numbersAdd = this.shadowRoot.querySelector('#numberChoose').value
-      this.numberOfRounds = this.shadowRoot.querySelector('#numberRounds').value
-      this.numberHigh = this.shadowRoot.querySelector('#numberHigh').value
-      this.numberLow = this.shadowRoot.querySelector('#numberLow').value
-      this.dispatchStartAddition()
-  }
-    )}
+      const numbers = this.shadowRoot.querySelector('#numberChoose').value
+      const rounds = this.shadowRoot.querySelector('#numberRounds').value
+      const highestNumber = this.shadowRoot.querySelector('#numberHigh').value
+      const lowestNumber = this.shadowRoot.querySelector('#numberLow').value
+      this.dispatchStartAddition(numbers, rounds, highestNumber, lowestNumber)
+    }
 
-    dispatchStartAddition () {
+    dispatchStartAddition (numbers, rounds, highestNumber, lowestNumber) {
       const event = new CustomEvent('start-addition-game', {
-        detail: { numbers: this.numbersAdd, rounds: this.numberOfRounds, high: this.numberHigh, low: this.numberLow },
+        detail: { numbers: numbers, rounds: rounds, high: highestNumber, low: lowestNumber },
         bubbles: true,
         composed: true,
       })
