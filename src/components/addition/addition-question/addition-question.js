@@ -28,11 +28,11 @@ customElements.define('addition-question', class extends HTMLElement {
       this.initializeVariables()
   }
 
-  loadExternalCss(path) {
+  loadExternalCss() {
     const link = document.createElement('link')
         link.setAttribute('rel', 'stylesheet')
         link.setAttribute('href', '../../../public/css/styles.css')
-        this.shadowRoot.appendChild(css)
+        this.shadowRoot.appendChild(link)
   }
 
   initializeVariables() {
@@ -44,7 +44,7 @@ customElements.define('addition-question', class extends HTMLElement {
       this.submit = this.shadowRoot.querySelector('#submit')
       this.container = this.shadowRoot.querySelector('.container')
       this.correctAnswer = 0
-      this.currrentRound = 1
+      this.currentRound = 1
       this.totalRounds = 0
       this.numbers = 0
       this.scoreCount = 0

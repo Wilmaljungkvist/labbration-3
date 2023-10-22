@@ -19,11 +19,6 @@ template.innerHTML = `
 customElements.define('addition-choose', 
 
 class extends HTMLElement {
-  numbersAdd
-  numberOfRounds
-  numberHigh
-  numberLow
-
   #submitButton
   
     constructor() {
@@ -40,7 +35,7 @@ class extends HTMLElement {
    }
 
    setEventListener() {
-    this.#submitButton.addEventListener('click', () => { submitAdditionSettings() })
+    this.#submitButton.addEventListener('click', () => { this.submitAdditionSetting() })
    }
 
    loadExternalCss() {
@@ -54,8 +49,20 @@ class extends HTMLElement {
       const numbers = this.shadowRoot.querySelector('#numberChoose').value
       const rounds = this.shadowRoot.querySelector('#numberRounds').value
       const highestNumber = this.shadowRoot.querySelector('#numberHigh').value
-      const lowestNumber = this.shadowRoot.querySelector('#numberLow').value
-      this.dispatchStartAddition(numbers, rounds, highestNumber, lowestNumber)
+      const lowestNumber = this.shadowRoot.querySelector('#numberLow')
+      const minValue = Number.parseInt(highestNumber) - 1
+      this.handleHighestLowestNumber(minValue, lowestNumber)
+
+      if(lowestNumber.value <= highestNumber) {
+      this.dispatchStartAddition(numbers, rounds, highestNumber, lowestNumber.value)
+      } else {
+        throw new Error('The highest number must greater than the lowest!')
+      }
+
+    }
+
+    handleHighestLowestNumber(minValue, lowestNumber) {
+      lowestNumber.setAttribute('min', minValue)
     }
 
     dispatchStartAddition (numbers, rounds, highestNumber, lowestNumber) {
