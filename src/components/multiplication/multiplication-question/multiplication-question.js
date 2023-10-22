@@ -41,7 +41,7 @@ customElements.define('multiplication-question', class extends HTMLElement {
   #loadExternalCss() {
     const link = document.createElement('link')
     link.setAttribute('rel', 'stylesheet')
-    link.setAttribute('href', '../../../public/css/styles.css')
+    link.setAttribute('href', '/css/styles.css')
     this.shadowRoot.appendChild(link)
   }
 
