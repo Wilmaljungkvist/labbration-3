@@ -4,8 +4,10 @@ Testades 22/10-23.
 1.1 OK
 2.1 OK
 2.2 OK
+2.3 OK
 3.1 OK
 3.2 OK
+3.3 OK
 Alla tester är OK. 
 ### Manuella tester:
 
@@ -51,6 +53,17 @@ output
 2. Du ska mötas av en ny skärm där det står 'multiplikation inställningar'.
 3. Du ska kunna trycka in dessa siffor och skicka, men sidan ska omdirigeras till hemskärmen och du ska inte komma till första frågan eller slutskärmen som tackar för spelet. 
 
+2.3
+input
+1. Besök https://matte-applikation.netlify.app/.
+2. klicka på 'multiplikation'.
+3. Välj rundan till 0.
+
+output 
+1. Du ska mötas av en sida där du kan trycka på antingen multiplikation eller addition. 
+2. Du ska mötas av en ny skärm där det står 'multiplikation inställningar'.
+3. Du ska inte kunna skicka och istället mötas av ett meddelande som säger att de måste vara större än 1.  
+
 ### addition 3
 3.1
 input
@@ -79,3 +92,14 @@ output
 1. Du ska mötas av en sida där du kan trycka på antingen multiplikation eller addition. 
 2. Du ska mötas av en ny skärm där det står 'addition inställningar'.
 3. Du ska kunna trycka in dessa siffor och skicka, men sidan ska omdirigeras till hemskärmen och du ska inte komma till första frågan eller slutskärmen som tackar för spelet.  
+
+3.3
+input
+1. Besök https://matte-applikation.netlify.app/.
+2. klicka på 'addition'.
+3. Välj rundan till 0.
+
+output 
+1. Du ska mötas av en sida där du kan trycka på antingen multiplikation eller addition. 
+2. Du ska mötas av en ny skärm där det står 'addition inställningar'.
+3. Du ska inte kunna skicka och istället mötas av ett meddelande som säger att de måste vara större än 1.   
