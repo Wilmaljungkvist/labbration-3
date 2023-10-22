@@ -82,7 +82,7 @@ customElements.define('math-application', class extends HTMLElement {
 
     const multiplicationDivisionQuestion = document.createElement('multiplication-question')
 
-    multiplicationDivisionQuestion.initialize(table, rounds, highestNumber, lowestNumber)
+    multiplicationDivisionQuestion.initializeSettings(table, rounds, highestNumber, lowestNumber)
 
     this.shadowRoot.appendChild(multiplicationDivisionQuestion)
   }

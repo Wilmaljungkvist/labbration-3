@@ -122,7 +122,7 @@ customElements.define('addition-question', class extends HTMLElement {
 
 
   #generateNewQuestion(numbers) { 
-    const numbersToAdd = this.arrayGenerator.getRandomArray(this.#low, (this.#high + 1), numbers)
+    const numbersToAdd = this.arrayGenerator.createRandomArray(this.#low, (this.#high + 1), numbers)
     let question = 'Vad är '
 
     for (let i = 0; i < numbersToAdd.length; i++) {
