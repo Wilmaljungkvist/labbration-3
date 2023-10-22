@@ -3,12 +3,12 @@ import { NumberGenerator, ArrayGenerator } from "slumpgenerator";
 const template = document.createElement('template');
 template.innerHTML = `
 <div class="container">
-  <p>Score: 0</p>
+  <p>Poäng: 0</p>
     <h1></h1>
     <form>
-    <label for="answer">Please write your answer: </label>
-    <input id='numberAnswer' name="answer" type="number" placeholder="Write and press enter">
-    <button type="submit" id="submit">Submit</button>
+    <label for="answer">Skriv ditt svar: </label>
+    <input id='numberAnswer' name="answer" type="number">
+    <button type="submit" id="submit">Skicka</button>
 </form>
   <div>
 `
@@ -18,80 +18,79 @@ customElements.define('addition-question', class extends HTMLElement {
     super()
 
     this.attachShadow({ mode: 'open' })
-      .appendChild(template.content.cloneNode(true))
+    .appendChild(template.content.cloneNode(true))
 
-      this.numberGenerator = new NumberGenerator()
-      this.arrayGenerator = new ArrayGenerator()
+    this.numberGenerator = new NumberGenerator()
+    this.arrayGenerator = new ArrayGenerator()
 
-      this.loadExternalCss()
-
-      this.initializeVariables()
+    this.#loadExternalCss()
+    this.#initializeVariables()
   }
 
-  loadExternalCss() {
+  #loadExternalCss() {
     const link = document.createElement('link')
-        link.setAttribute('rel', 'stylesheet')
-        link.setAttribute('href', '../../../public/css/styles.css')
-        this.shadowRoot.appendChild(link)
+    link.setAttribute('rel', 'stylesheet')
+    link.setAttribute('href', '../../../public/css/styles.css')
+    this.shadowRoot.appendChild(link)
   }
 
-  initializeVariables() {
-    this.h1 = this.shadowRoot.querySelector('h1')
-      this.form = this.shadowRoot.querySelector('form')
-      this.input = this.shadowRoot.querySelector('#numberAnswer')
-      this.score = this.shadowRoot.querySelector('p')
-      this.label = this.shadowRoot.querySelector('label')
-      this.submit = this.shadowRoot.querySelector('#submit')
-      this.container = this.shadowRoot.querySelector('.container')
-      this.correctAnswer = 0
-      this.currentRound = 1
-      this.totalRounds = 0
-      this.numbers = 0
-      this.scoreCount = 0
-      this.high = 0
-      this.low = 0
+  #initializeVariables() {
+    this.#h1 = this.shadowRoot.querySelector('h1')
+    this.#userAnswer = this.shadowRoot.querySelector('#numberAnswer')
+    this.#score = this.shadowRoot.querySelector('p')
+    this.#correctAnswer = 0
+    this.#currentRound = 1
+    this.#currentScore = 0
   }
 
-  initialize(numbers, rounds, high, low) {
-    this.totalRounds = Number.parseInt(rounds)
-    this.numbers = Number.parseInt(numbers)
-    this.high = Number.parseInt(high)
-    this.low = Number.parseInt(low)
-    this.startRound()
-}
+ 
+  initializeSettings(numbers, rounds, high, low) {
+    this.#totalRounds = Number.parseInt(rounds)
+    this.#numbers = Number.parseInt(numbers)
+    this.#high = Number.parseInt(high)
+    this.#low = Number.parseInt(low)
+    this.#startRound()
+  }
 
 
-  startRound() {
-    this.input.value = ''
-    if (this.currentRound <= this.totalRounds) {
-      this.generateNewQuestion(this.numbers)
+  #startRound() {
+    this.#userAnswer.value = ''
+
+    if (this.#currentRound <= this.#totalRounds) {
+      this.#generateNewQuestion(this.#numbers)
     } else {
-      this.handleGameOver()
+      this.#handleGameOver()
     }
   }
 
-  handleGameOver() {
-    this.h1.textContent = 'Slut på frågor'
-      const restartButton = document.createElement('button')
-      this.container.appendChild(restartButton)
-      restartButton.textContent = 'Köra igen?'
-      const homeButton = document.createElement('button')
-      this.container.appendChild(homeButton)
-      homeButton.textContent = 'Gå till hemskärm?'
+  #handleGameOver() {
+    const container = this.shadowRoot.querySelector('.container')
+    this.#h1.textContent = 'Slut på frågor'
 
-      homeButton.addEventListener('click', () => {
-        this.dispatchHomeEvent()
-      })
+    const restartButton = document.createElement('button')
+    container.appendChild(restartButton)
+    restartButton.textContent = 'Köra igen?'
 
-      restartButton.addEventListener('click', () => {
-        this.dispatchAdditionStartEvent()
-      })
+    const homeButton = document.createElement('button')
+    container.appendChild(homeButton)
+    homeButton.textContent = 'Gå till hemskärm?'
 
-      this.label.textContent = 'Bra jobbat! Vad vill du göra nu?'
-      this.input.remove()
-      this.submit.remove()
+    homeButton.addEventListener('click', () => {
+      this.dispatchHomeEvent()
+    })
+
+    restartButton.addEventListener('click', () => {
+      this.dispatchAdditionStartEvent()
+    })
+
+    this.#questionLabel.textContent = 'Bra jobbat! Vad vill du göra nu?'
+    this.shadowRoot.querySelector('label').remove()
+    this.shadowRoot.querySelector('#submit').remove()
   }
 
+  /**
+   * Dispatches event that says that the addition game should start over. 
+   */
   dispatchAdditionStartEvent() {
     const event = new CustomEvent('addition-start', {
       bubbles: true,
@@ -100,6 +99,9 @@ customElements.define('addition-question', class extends HTMLElement {
     this.dispatchEvent(event)
   }
 
+  /**
+   * Dispatches event that directs the client to the home page. 
+   */
   dispatchHomeEvent() {
     const event = new CustomEvent('home-start', {
       bubbles: true,
@@ -109,20 +111,22 @@ customElements.define('addition-question', class extends HTMLElement {
   }
 
 
-  generateNewQuestion(numbers) { 
-    const numbersToAdd = this.arrayGenerator.getRandomArray(this.low, (this.high + 1), numbers)
+  #generateNewQuestion(numbers) { 
+    const numbersToAdd = this.arrayGenerator.getRandomArray(this.#low, (this.#high + 1), numbers)
     let question = 'Vad är '
+
     for (let i = 0; i < numbersToAdd.length; i++) {
       question += numbersToAdd[i]
       if (i < (numbersToAdd.length - 1)) {
         question += ' + '
       } 
     }
-    this.h1.textContent = question
-    this.correctAnswer = numbersToAdd.reduce((acc, num) => acc + num, 0)
+
+    this.#h1.textContent = question
+    this.#correctAnswer = numbersToAdd.reduce((acc, num) => acc + num, 0)
 }
 
-  handleUserAnswer() {
+  #handleUserAnswer() {
     const correctMessages = [
       'Korrekt, bra jobbat!',
       'De va rätt, snyggt!',
@@ -139,30 +143,33 @@ customElements.define('addition-question', class extends HTMLElement {
       'Fel! :(',
       'Fel! :|'
     ]
+
     const indexCorrect = this.arrayGenerator.getRandomArrayIndex(correctMessages)
     const indexWrong = this.arrayGenerator.getRandomArrayIndex(wrongMessages)
     const userAnswer = parseInt(this.shadowRoot.querySelector('#numberAnswer').value)
-    if (userAnswer === this.correctAnswer) {
-      this.h1.textContent = correctMessages[indexCorrect]
-      this.scoreCount += 1
+
+    if (userAnswer === this.#correctAnswer) {
+      this.#h1.textContent = correctMessages[indexCorrect]
+      this.#currentScore += 1
     } else {
-      this.h1.textContent = wrongMessages[indexWrong]
+      this.#h1.textContent = wrongMessages[indexWrong]
     }
-    this.updateScore()
+    this.#updateScore()
   }
 
-  updateScore() {
-    this.score.textContent = 'Poäng: ' + this.scoreCount + '/' + (this.currentRound)
+  #updateScore() {
+    this.#score.textContent = 'Poäng: ' + this.#currentScore + '/' + (this.#currentRound)
   }
 
-connectedCallback() {
-    this.form.addEventListener('submit', (event) => {
+  connectedCallback() {
+    const form = this.shadowRoot.querySelector('form')
+    form.addEventListener('submit', (event) => {
       event.preventDefault()
-      this.handleUserAnswer()
+      this.#handleUserAnswer()
 
       setTimeout(() => {
-        this.currentRound += 1
-        this.startRound()
+        this.#currentRound += 1
+        this.#startRound()
       }, 1000)
     })
   }

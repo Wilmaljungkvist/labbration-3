@@ -56,14 +56,14 @@ class extends HTMLElement {
       const lowestNumber = this.shadowRoot.querySelector('#numberLow')
 
       const minValue = Number.parseInt(highestNumber) - 1
-      this.handleHighestLowestNumber(minValue, lowestNumber)
+      this.#handleHighestLowestNumber(minValue, lowestNumber)
 
-      if(this.handleErrors()) {
+      if(this.#handleErrors()) {
       this.dispatchAdditionSettingsEvent(numbers, rounds, highestNumber, lowestNumber.value)
       } 
     }
 
-    handleHighestLowestNumber(minValue, lowestNumber) {
+    #handleHighestLowestNumber(minValue, lowestNumber) {
       lowestNumber.setAttribute('min', minValue)
     }
 
@@ -82,7 +82,7 @@ class extends HTMLElement {
     /**
      * Throws error if the smallest number is greater than the bigger number.
      */
-    handleErrors(lowest, highest) {
+    #handleErrors(lowest, highest) {
       if(lowest > highest) {
       throw new Error('The highest number must greater than the lowest!')
       } else {

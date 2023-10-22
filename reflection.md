@@ -43,6 +43,8 @@ Detta är ett exempel på automatiska tester i min labb 2 modul och det går att
 Jag har följt the stepdown rule i mina klasser genom att placera variablerna först och sen de olika metoderna, med metoder som anropas under de som anropar. Jag har använt mig av # på variabler och metoder som inte behöver vara public och kommas åt av en annan klass. Jag har försökt hålla klasserna små och bryta ut när de fått får många responsibilities. jag har följt The single Responsibility principle för att veta när jag ska bryta ut mina klasser i mina komponenter, men om man skulle följa denna princip till punkt och pricka skulle det finnas väldigt många små klasser som känns väldigt onödiga. SÅ jag har ju inte följ denna princip till punkt och pricka. 
 Klasserna är isolerade från varandra. 
 Min addition choose klass/komponent vars uppgift är att ställa in additions inställningarna till rundan. Det går att förklara klassens uppgift utan att använda och, detta gör att den är lagom stor. 
+
+För många variabler. 
 ![Bild på addition choose klass](images/addition.png)
 
 ## Kapitel 11
