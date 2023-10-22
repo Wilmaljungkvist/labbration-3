@@ -14,6 +14,17 @@ template.innerHTML = `
 `
 
 customElements.define('addition-question', class extends HTMLElement {
+  #h1
+  #userAnswer
+  #score
+  #correctAnswer
+  #currentRound
+  #currentScore
+  #totalRounds
+  #numbers
+  #high
+  #low
+
   constructor() {
     super()
 
