@@ -169,7 +169,7 @@ connectedCallback() {
 
       setTimeout(() => {
         this.#currentRound += 1
-        this.startRound()
+        this.#startRound()
       }, 1000)
     })
   }
