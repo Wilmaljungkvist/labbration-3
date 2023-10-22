@@ -5,8 +5,6 @@ template.innerHTML = `
     <form>
         <button class="multiplication">Multiplikation</button>
         <button class="addition">Addition</button>
-        <!-- <button class="subtraction">Subtraktion</button>
-        <button class="division">Division</button> -->
 </form>
   <div>
 `
@@ -28,6 +26,9 @@ customElements.define('math-choose',
         // TODO: implement division and subtraction.
     }
 
+    /**
+     * Dispatch event if addition is selected. 
+     */
     dispatchAdditionEvent() {
       this.addition.addEventListener('click', () => {
       const event = new Event('addition-selected', {bubbles: true, composed: true})
@@ -35,6 +36,9 @@ customElements.define('math-choose',
       })
     }
 
+    /**
+     * Dispatch event if multiplication is selected. 
+     */
     dispatchMultiplicationEvent() {
       this.multiplication.addEventListener('click', () => {
         const event = new Event('multiplication-selected', {bubbles: true, composed: true})
@@ -44,9 +48,9 @@ customElements.define('math-choose',
 
     initializeVariables() {
       this.multiplication = this.shadowRoot.querySelector('.multiplication')
-        this.subtraction = this.shadowRoot.querySelector('.subtraction')
-        this.addition = this.shadowRoot.querySelector('.addition')
-        this.division = this.shadowRoot.querySelector('.division')
+      this.subtraction = this.shadowRoot.querySelector('.subtraction')
+      this.addition = this.shadowRoot.querySelector('.addition')
+      this.division = this.shadowRoot.querySelector('.division')
     }
 
     loadExternalCss() {
