@@ -57,7 +57,7 @@ class extends HTMLElement {
     const minValue = Number.parseInt(highestNumber) - 1
     this.#handleHighestLowestNumber(minValue, lowestNumber)
 
-    if(this.#handleErrors(lowestNumber.value, highestNumber)) {
+    if(this.#handleErrors(lowestNumber.value, highestNumber, rounds)) {
       this.dispatchStartMultiplicationEvent(multiplicationTable, rounds, highestNumber, lowestNumber.value)
     } 
   }
@@ -82,9 +82,11 @@ class extends HTMLElement {
   /**
   * Throws error if the smallest number is greater than the bigger number.
   */
-  #handleErrors(lowest, highest) {
+  #handleErrors(lowest, highest, rounds) {
     if(lowest > highest) {
       throw new Error('The highest number must greater than the lowest!')
+    } else if (rounds < 1) {
+      throw new Error('The rounds needs to be 1 or bigger.')
     } else {
       return true
     }
