@@ -22,75 +22,92 @@ customElements.define('math-application', class extends HTMLElement {
 
     this.mathChoose = this.shadowRoot.querySelector('math-choose')
 
-    this.mathChoose.addEventListener('multiplication-selected', () => {
-      this.showMultiplicationChoose()
-    })
+    this.#handleStartEvents()
+    this.#handleSelectedEvents()
+  }
 
-    this.mathChoose.addEventListener('addition-selected', () => {
-      this.showAdditionChoose()
-    })
-
+  /**
+   * Listening for starting the diffrent questions or returning home. 
+   */
+  #handleStartEvents() {
     this.addEventListener('multiply-start', () => {
-        this.showMultiplicationChoose()
+        this.#showMultiplicationSettings()
       })
 
     this.addEventListener('addition-start', () => {
-        this.showAdditionChoose()
+        this.#showAdditionSettings()
     })
 
     this.addEventListener('home-start', () => {
-        this.showMathChoose()
+        this.#showMathChoose()
     })
   }
 
+  /**
+   * Listening for when multiplication or addition is selected in math-choose. 
+   */
+  #handleSelectedEvents() {
+    this.mathChoose.addEventListener('multiplication-selected', () => {
+        this.#showMultiplicationSettings()
+      })
+  
+      this.mathChoose.addEventListener('addition-selected', () => {
+        this.#showAdditionSettings()
+      })
+  }
 
-  showMathChoose() {
-    this.clearShadowDOM()
+
+  #showMathChoose() {
+    this.#clearShadowDOM()
     const mathChoose = document.createElement('math-choose')
     this.shadowRoot.appendChild(mathChoose)
   }
 
-  showMultiplicationChoose() {
-    this.clearShadowDOM()
+
+  #showMultiplicationSettings() {
+    this.#clearShadowDOM()
     const multiplicationChoose = document.createElement('multiplication-choose')
     multiplicationChoose.addEventListener('start-multiplication-game', (event) => {
       const table = event.detail.table
       const rounds = event.detail.rounds
       const highestNumber = event.detail.high
       const lowestNumber = event.detail.low
-      this.showMultiplicationQuestion(table, rounds, highestNumber, lowestNumber)
+      this.#showMultiplicationQuestion(table, rounds, highestNumber, lowestNumber)
     })
     this.shadowRoot.appendChild(multiplicationChoose)
   }
 
-  showMultiplicationQuestion(table, rounds, highestNumber, lowestNumber) {
-    this.clearShadowDOM()
+  #showMultiplicationQuestion(table, rounds, highestNumber, lowestNumber) {
+    this.#clearShadowDOM()
+
     const multiplicationDivisionQuestion = document.createElement('multiplication-question')
+
     multiplicationDivisionQuestion.initialize(table, rounds, highestNumber, lowestNumber)
+
     this.shadowRoot.appendChild(multiplicationDivisionQuestion)
   }
 
-  showAdditionChoose() {
-    this.clearShadowDOM()
+  #showAdditionSettings() {
+    this.#clearShadowDOM()
     const additionChoose = document.createElement('addition-choose')
     this.shadowRoot.appendChild(additionChoose)
     additionChoose.addEventListener('start-addition-game', (event) => {
-        const numbers = event.detail.numbers
-        const rounds = event.detail.rounds
-        const high = event.detail.high
-        const low = event.detail.low
-        this.showAdditionQuestion(numbers, rounds, high, low)
+      const numbers = event.detail.numbers
+      const rounds = event.detail.rounds
+      const high = event.detail.high
+      const low = event.detail.low
+      this.#showAdditionQuestion(numbers, rounds, high, low)
     })
   }
 
-  showAdditionQuestion(numbers, rounds, high, low) {
-    this.clearShadowDOM()
+  #showAdditionQuestion(numbers, rounds, high, low) {
+    this.#clearShadowDOM()
     const additionQuestion = document.createElement('addition-question')
-    additionQuestion.initialize(numbers, rounds, high, low)
+    additionQuestion.initializeSettings(numbers, rounds, high, low)
     this.shadowRoot.appendChild(additionQuestion)
   }
 
-  clearShadowDOM() {
+  #clearShadowDOM() {
     this.shadowRoot.innerHTML = ''
   }
 })

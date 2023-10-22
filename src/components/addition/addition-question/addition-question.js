@@ -93,9 +93,11 @@ customElements.define('addition-question', class extends HTMLElement {
     restartButton.addEventListener('click', () => {
       this.dispatchAdditionStartEvent()
     })
-
-    this.#questionLabel.textContent = 'Bra jobbat! Vad vill du göra nu?'
-    this.shadowRoot.querySelector('label').remove()
+    
+    const questionLabel = this.shadowRoot.querySelector('label')
+    questionLabel.textContent = 'Bra jobbat! Vad vill du göra nu?'
+    questionLabel.remove()
+    this.#userAnswer.remove()
     this.shadowRoot.querySelector('#submit').remove()
   }
 
@@ -157,7 +159,7 @@ customElements.define('addition-question', class extends HTMLElement {
 
     const indexCorrect = this.arrayGenerator.getRandomArrayIndex(correctMessages)
     const indexWrong = this.arrayGenerator.getRandomArrayIndex(wrongMessages)
-    const userAnswer = parseInt(this.shadowRoot.querySelector('#numberAnswer').value)
+    const userAnswer = parseInt(this.#userAnswer.value)
 
     if (userAnswer === this.#correctAnswer) {
       this.#h1.textContent = correctMessages[indexCorrect]
