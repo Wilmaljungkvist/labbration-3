@@ -37,9 +37,17 @@ class extends HTMLElement {
     this.numberOfRounds = this.shadowRoot.querySelector('#numberRounds').value
     this.numberHigh = this.shadowRoot.querySelector('#numberHigh').value
     this.numberLow = this.shadowRoot.querySelector('#numberLow').value
-    this.dispatchStartMultiplicationEvent()
-})
+    if(lowestNumber.value <= highestNumber) {
+      this.dispatchStartMultiplicationEvent()
+      } else {
+        throw new Error('The highest number must greater than the lowest!')
+      }   
+   })
  }
+
+ handleHighestLowestNumber(minValue, lowestNumber) {
+  lowestNumber.setAttribute('min', minValue)
+}
 
  dispatchStartMultiplicationEvent() {
   const event = new CustomEvent('start-multiplication-game', {

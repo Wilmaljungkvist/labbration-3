@@ -45,6 +45,7 @@ customElements.define('math-application', class extends HTMLElement {
 
 
   showMathChoose() {
+    this.clearShadowDOM()
     const mathChoose = document.createElement('math-choose')
     this.shadowRoot.appendChild(mathChoose)
   }

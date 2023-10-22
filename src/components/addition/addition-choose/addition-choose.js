@@ -4,13 +4,13 @@ template.innerHTML = `
     <h1>Addition inställningar</h1>
     <form>
     <br><label>Hur många termer vill du ha? </label>
-    <input id='numberChoose' name="numberChoose" type="number" min="2">
+    <input id='numberChoose' name="numberChoose" type="number" min="2" value="2">
     <br><label>Hur många rundor?</label>
-    <input id='numberRounds' name="numberRounds" type="number" min="1">
+    <input id='numberRounds' name="numberRounds" type="number" min="1" value="1">
     <br><label>Högsta numret att addera med?</label>
-    <input id='numberHigh' name="numberHigh" type="number">
+    <input id='numberHigh' name="numberHigh" type="number" value="0">
     <br><label>Lägsta numret att addera med?</label>
-    <input id='numberLow' name="numberLow" type="number">
+    <input id='numberLow' name="numberLow" type="number" value="0">
     <button type="submit">Skicka</button>
 </form>
   <div>
@@ -21,21 +21,20 @@ customElements.define('addition-choose',
 class extends HTMLElement {
   #submitButton
   
-    constructor() {
-      super()
+  constructor() {
+    super()
   
-      this.attachShadow({ mode: 'open' })
-        .appendChild(template.content.cloneNode(true))
+    this.attachShadow({ mode: 'open' })
+    .appendChild(template.content.cloneNode(true))
   
-        this.#submitButton = this.shadowRoot.querySelector('button')
+    this.#submitButton = this.shadowRoot.querySelector('button')
 
-        this.loadExternalCss()
-        this.submitAdditionSetting()
-        this.setEventListener()
+    this.loadExternalCss()
+    this.setEventListener()
    }
 
    setEventListener() {
-    this.#submitButton.addEventListener('click', () => { this.submitAdditionSetting() })
+    this.#submitButton.addEventListener('click', () => { this.getAdditionSetting() })
    }
 
    loadExternalCss() {
@@ -43,34 +42,51 @@ class extends HTMLElement {
         link.setAttribute('rel', 'stylesheet')
         link.setAttribute('href', '../../../public/css/styles.css')
         this.shadowRoot.appendChild(link)
-  }
+    }
 
-  submitAdditionSetting() {
+    /**
+     * Get the settings to the addition. 
+     * Throws error if highest number is smaller than lowest number. 
+     */
+    getAdditionSetting() {
       const numbers = this.shadowRoot.querySelector('#numberChoose').value
       const rounds = this.shadowRoot.querySelector('#numberRounds').value
       const highestNumber = this.shadowRoot.querySelector('#numberHigh').value
+
       const lowestNumber = this.shadowRoot.querySelector('#numberLow')
+
       const minValue = Number.parseInt(highestNumber) - 1
       this.handleHighestLowestNumber(minValue, lowestNumber)
 
-      if(lowestNumber.value <= highestNumber) {
-      this.dispatchStartAddition(numbers, rounds, highestNumber, lowestNumber.value)
-      } else {
-        throw new Error('The highest number must greater than the lowest!')
-      }
-
+      if(this.handleErrors()) {
+      this.dispatchAdditionSettingsEvent(numbers, rounds, highestNumber, lowestNumber.value)
+      } 
     }
 
     handleHighestLowestNumber(minValue, lowestNumber) {
       lowestNumber.setAttribute('min', minValue)
     }
 
-    dispatchStartAddition (numbers, rounds, highestNumber, lowestNumber) {
+    /**
+     * Dispatches the event with the clients settings. 
+     */
+    dispatchAdditionSettingsEvent (numbers, rounds, highestNumber, lowestNumber) {
       const event = new CustomEvent('start-addition-game', {
         detail: { numbers: numbers, rounds: rounds, high: highestNumber, low: lowestNumber },
         bubbles: true,
         composed: true,
       })
       this.dispatchEvent(event)
+    }
+
+    /**
+     * Throws error if the smallest number is greater than the bigger number.
+     */
+    handleErrors(lowest, highest) {
+      if(lowest > highest) {
+      throw new Error('The highest number must greater than the lowest!')
+      } else {
+        return true
+      }
     }
 })

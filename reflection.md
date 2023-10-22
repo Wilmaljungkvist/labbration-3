@@ -13,7 +13,7 @@ Allt det som syns i denna bilden var tidigare en del av en enda metod, vilket gj
 ![Bild på kod](images/dry.png)
 
 ## Kapitel 4
-Det här kapitlet har minskat mitt behov av att skriva onödiga kommentarer i min kod. Tidigare brukade jag kommentera allt, även om variabelnamnen redan var ganska självförklarande (noise comments). Det ledde till överflödiga och röriga kommentarer som faktiskt gjorde koden mindre snygg istället för att förbättra förståelsen av koden. Dessutom märkte jag att jag ibland fokuserade på att upprepa uppenbar information istället för att fokusera på att förklara de viktiga detaljerna som inte var lika uppenbara.
+Det här kapitlet har minskat mitt behov av att skriva onödiga kommentarer i min kod. Tidigare brukade jag kommentera allt, även om variabelnamnen redan var ganska självförklarande (noise comments). Det ledde till överflödiga och röriga kommentarer som faktiskt gjorde koden mindre snygg istället för att förbättra förståelsen av koden. Dessutom märkte jag att jag ibland fokuserade på att upprepa uppenbar information istället för att fokusera på att förklara de viktiga detaljerna som inte var lika uppenbara. Jag har nog fortfarande lite för mycket noise comments, men det har förbättrats sen hur det var innan. 
 
 Jag har även använt mig av TODO kommentarer för att framtida jag ska veta vad jag ska implementera mer, då jag tycker denna uppgift är rolig och vill fortsätta på den senare. 
 
@@ -27,7 +27,7 @@ När det kommer till vertical formatting så är det inga av mina filer som är 
 Jag har arbetat med webbkomponenter i labbration 3 och på detta sätt kapslat in klasserna. Den enda som 'pratar' med andra komponenter är min 'math-application.js' och den vet inte ens något om de andra klasserna utan fångar bara in de event som bubblas ut från dem. Vilket visar på att det finns en väldigt bra inkapsling. Jag kallar på min slumpgenerator klass from npm i min multiplication-question.js och addition-question.js, men jag har undvikit trainwrecks helt och hållet. I labb 3 koden har jag inga behov av getters och setters då utomstående kod inte kommer åt klasserna ändå, jag har även privata metoder och variabler för att få en extra inkapsling i både labb 3 och min labb 2 modul. 
 
 ## Kapitel 7
-I både labb 2 och labb 3 använder  jag bara exceptions. Jag har även brytit ut min felhantering till en separat klass för att lätt kunna komma åt felhanteringen. Jag använder mig även av egna felmeddelanden för att kunna lokalisera vad och vart det gått fel i koden. förut så returnerade jag null i min funktion när det inte gått fel men det gör jag inte längre och jag passar inte null. 
+I både labb 2 och labb 3 använder jag bara exceptions. Jag har även brytit ut min felhantering till en separat klass för att lätt kunna komma åt felhanteringen. Jag använder mig även av egna felmeddelanden för att kunna lokalisera vad och vart det gått fel i koden. förut så returnerade jag null i min funktion när det inte gått fel men det gör jag inte längre och jag passar inte null. 
 
 ![Bild på felhantering](images/error.png)
 ## Kapitel 8 
