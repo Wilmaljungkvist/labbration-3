@@ -66,7 +66,6 @@ customElements.define('addition-question', class extends HTMLElement {
 
   #startRound() {
     this.#userAnswer.value = ''
-
     if (this.#currentRound <= this.#totalRounds) {
       this.#generateNewQuestion(this.#numbers)
     } else {
@@ -94,9 +93,7 @@ customElements.define('addition-question', class extends HTMLElement {
       this.dispatchAdditionStartEvent()
     })
     
-    const questionLabel = this.shadowRoot.querySelector('label')
-    questionLabel.textContent = 'Bra jobbat! Vad vill du göra nu?'
-    questionLabel.remove()
+    this.shadowRoot.querySelector('label').textContent = 'Bra jobbat! Vad vill du göra nu?'
     this.#userAnswer.remove()
     this.shadowRoot.querySelector('#submit').remove()
   }
@@ -108,7 +105,7 @@ customElements.define('addition-question', class extends HTMLElement {
     const event = new CustomEvent('addition-start', {
       bubbles: true,
       composed: true,
-      })
+    })
     this.dispatchEvent(event)
   }
 

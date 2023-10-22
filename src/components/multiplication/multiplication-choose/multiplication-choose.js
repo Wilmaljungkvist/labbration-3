@@ -48,13 +48,13 @@ class extends HTMLElement {
    * Throws an error ig highest number is smaller than the lowest number. 
    */
   getMultiplicationSettings() {
-  const multiplicationTable = this.shadowRoot.querySelector('#numberChoose').value
-  const rounds = this.shadowRoot.querySelector('#numberRounds').value
-  const highestNumber = this.shadowRoot.querySelector('#numberHigh').value
+    const multiplicationTable = this.shadowRoot.querySelector('#numberChoose').value
+    const rounds = this.shadowRoot.querySelector('#numberRounds').value
+    const highestNumber = this.shadowRoot.querySelector('#numberHigh').value
 
-  const lowestNumber = this.shadowRoot.querySelector('#numberLow')
+    const lowestNumber = this.shadowRoot.querySelector('#numberLow')
 
-  const minValue = Number.parseInt(highestNumber) - 1
+    const minValue = Number.parseInt(highestNumber) - 1
     this.#handleHighestLowestNumber(minValue, lowestNumber)
 
     if(this.#handleErrors(lowestNumber.value, highestNumber)) {
@@ -62,20 +62,20 @@ class extends HTMLElement {
     } 
   }
 
- #handleHighestLowestNumber(minValue, lowestNumber) {
-  lowestNumber.setAttribute('min', minValue)
-}
+  #handleHighestLowestNumber(minValue, lowestNumber) {
+    lowestNumber.setAttribute('min', minValue)
+  }
 
-/**
- * Dispatches the event with the multiplication settings. 
- */
- dispatchStartMultiplicationEvent(table, rounds, high, low) {
-  const event = new CustomEvent('start-multiplication-game', {
-    detail: { table: table, rounds: rounds, high: high, low: low},
-    bubbles: true,
-    composed: true,
-  })
-  this.dispatchEvent(event)
+  /**
+   * Dispatches the event with the multiplication settings. 
+   */
+  dispatchStartMultiplicationEvent(table, rounds, high, low) {
+    const event = new CustomEvent('start-multiplication-game', {
+      detail: { table: table, rounds: rounds, high: high, low: low},
+      bubbles: true,
+      composed: true,
+    })
+    this.dispatchEvent(event)
  }
 
 
