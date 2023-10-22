@@ -26,9 +26,6 @@ customElements.define('math-application', class extends HTMLElement {
     this.#handleSelectedEvents()
   }
 
-  /**
-   * Listening for starting the diffrent questions or returning home. 
-   */
   #handleStartEvents() {
     this.addEventListener('multiply-start', () => {
         this.#showMultiplicationSettings()
@@ -43,9 +40,6 @@ customElements.define('math-application', class extends HTMLElement {
     })
   }
 
-  /**
-   * Listening for when multiplication or addition is selected in math-choose. 
-   */
   #handleSelectedEvents() {
     this.mathChoose.addEventListener('multiplication-selected', () => {
         this.#showMultiplicationSettings()

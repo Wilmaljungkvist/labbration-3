@@ -46,7 +46,7 @@ class extends HTMLElement {
 
     /**
      * Get the settings to the addition. 
-     * Throws an error if highest number is smaller than lowest number. 
+     * Throws an error if highestNumber is smaller than lowestNumber. 
      */
     getAdditionSetting() {
       const numbers = this.shadowRoot.querySelector('#numberChoose').value
@@ -80,7 +80,8 @@ class extends HTMLElement {
     }
 
     /**
-     * Throws error if the smallest number is greater than the bigger number.
+     * Throws error if the number that should be smaller is bigger then the other. 
+     * Throws error if the rounds is smaller then 1.
      */
     #handleErrors(lowest, highest, rounds) {
       if(lowest > highest) {
